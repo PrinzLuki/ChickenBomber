@@ -7,6 +7,7 @@ public class BaseBird : MonoBehaviour
 {
     protected BaseStats stats;
     protected Rigidbody rb;
+    protected bool isAbilityEnabled = false;
 
     private void Awake()
     {
@@ -14,9 +15,22 @@ public class BaseBird : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
-    protected virtual void UseAbility()
+    public virtual void EnableAbility()
     {
-        Debug.Log("Standard Bird has no Ability");
+        isAbilityEnabled = true;
+        Debug.Log("Enabled Ability");
+    }
+
+    public virtual void UseAbility()
+    {
+        Debug.Log("Used Ability");
+        DisableAbility();
+    }
+
+    public virtual void DisableAbility()
+    {
+        isAbilityEnabled = false;
+        Debug.Log("Disabled Ability");
     }
 
     protected virtual void OnCollisionEnter(Collision other)
@@ -25,6 +39,7 @@ public class BaseBird : MonoBehaviour
             other.gameObject.GetComponent<IDamageable>().GetDmg(stats.GetDmgValue());
     }
     
+
     public Rigidbody GetRb()
     {
         return rb;

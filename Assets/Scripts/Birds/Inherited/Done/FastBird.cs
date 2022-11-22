@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BirdHeavy : BaseBird
+public class FastBird : BaseBird
 {
-    [Header("Heavy Bird Settings")]
-    [SerializeField, Range(1, 500)] float mass;
-    [SerializeField, Range(1, 1000)] float forceToPushDown;
-    [SerializeField, Range(0.5f, 20f)] float forceTime = 3;
+    [Header("FastBird Settings")]
+    [SerializeField, Range(0, 1000)] float boostSpeed;
+    [SerializeField, Range(0, 10)] float abilityTimeSpan;
+    [SerializeField] Vector3 directionOffset;
 
     private void Update()
     {
@@ -22,20 +22,19 @@ public class BirdHeavy : BaseBird
     public override void UseAbility()
     {
         base.UseAbility();
-
-        //getting really heavy
-        rb.mass = mass;
         StartCoroutine(OnAbilityTimeSpan());
+        Debug.Log("UsedBoost");
+
     }
 
     IEnumerator OnAbilityTimeSpan()
     {
-        float timer = forceTime;
-        while (timer > 0)
+        float timer = abilityTimeSpan;
+        while(timer > 0)
         {
             timer -= Time.deltaTime;
+            rb.AddForce(directionOffset * boostSpeed, ForceMode.Impulse);
 
-            rb.AddForce(Vector3.down * forceToPushDown);
             yield return new WaitForEndOfFrame();
         }
     }
@@ -43,5 +42,11 @@ public class BirdHeavy : BaseBird
     protected override void OnCollisionEnter(Collision other)
     {
         base.OnCollisionEnter(other);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawRay(transform.position, directionOffset);
     }
 }
