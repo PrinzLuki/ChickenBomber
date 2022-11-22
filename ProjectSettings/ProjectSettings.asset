@@ -846,7 +846,7 @@ PlayerSettings:
     Legacy Analytics: 0
     Purchasing: 0
     UDP: 0
-    Unity Ads: 1
+    Unity Ads: 0
   luminIcon:
     m_Name: 
     m_ModelFolderPath: 
@@ -859,12 +859,12 @@ PlayerSettings:
     m_VersionCode: 1
     m_VersionName: 
   apiCompatibilityLevel: 6
-  activeInputHandler: 1
-  cloudProjectId: 8a5f7533-7c81-4642-a089-d958d911868c
+  activeInputHandler: 0
+  cloudProjectId: a09b17f8-14ad-4846-82d7-bec6a9edeb19
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
   projectName: ChickenBomber
-  organizationId: wertwer
+  organizationId: unity_e6912149e83801c31d21
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   playerDataPath: 
