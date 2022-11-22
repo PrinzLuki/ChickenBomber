@@ -130,8 +130,8 @@ public class LevelManager : MonoBehaviour
         for (int i = nextBirdsIndex; i < spawnedBirds.Length; i++)
         {
             Vector3 newSpawnOffset = new Vector3(spawnOffset.x * offsetIndex, spawnOffset.y, spawnOffset.z);
+            spawnedBirds[i].transform.position =  spawnLocation + newSpawnOffset;
             offsetIndex++;
-            spawnedBirds[i].transform.position = spawnLocation + newSpawnOffset;
         }
 
     }
