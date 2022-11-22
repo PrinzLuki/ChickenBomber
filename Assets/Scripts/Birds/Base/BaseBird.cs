@@ -2,13 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody), typeof(BirdStats))]
 public class BaseBird : MonoBehaviour
 {
-    BaseStats stats;
+    protected BaseStats stats;
+    protected Rigidbody rb;
 
     private void Awake()
     {
         stats = GetComponent<BaseStats>();
+        rb = GetComponent<Rigidbody>();
     }
 
     protected virtual void UseAbility()
@@ -21,6 +24,9 @@ public class BaseBird : MonoBehaviour
         if (other.gameObject.GetComponent<IDamageable>() != null)
             other.gameObject.GetComponent<IDamageable>().GetDmg(stats.GetDmgValue());
     }
-
-
+    
+    public Rigidbody GetRb()
+    {
+        return rb;
+    }
 }

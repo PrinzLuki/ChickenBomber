@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MoveByTouch : MonoBehaviour
 {
+    public float offset;
+
     void Update()
     {
         if (Input.GetMouseButton(0))
@@ -12,7 +14,7 @@ public class MoveByTouch : MonoBehaviour
             Vector2 mousePos = Vector3.zero;
             mousePos = Input.mousePosition;
 
-            Vector3 worldPoint = cam.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, cam.nearClipPlane));
+            Vector3 worldPoint = cam.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, cam.nearClipPlane + offset));
 
             transform.position = worldPoint;
         }
