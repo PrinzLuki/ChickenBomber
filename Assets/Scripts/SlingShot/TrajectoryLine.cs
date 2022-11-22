@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class TrajectoryLine : MonoBehaviour
 {
-    [SerializeField] Vector3 velocityTest;
     [SerializeField] LineRenderer lineRenderer;
     [SerializeField] int steps;
     

@@ -1,3 +1,4 @@
+
 using UnityEngine;
 
 public class SingletonL<T> : MonoBehaviour where T : Component
@@ -14,7 +15,10 @@ public class SingletonL<T> : MonoBehaviour where T : Component
                     instance = objs[0];
                 if(objs.Length > 1)
                 {
-                    Debug.LogError("There is more than one Singleton in the scene");
+                    for (int i = 1; i < objs.Length; i++)
+                    {
+                        Destroy(objs[i]);
+                    }
                 }
                 if(instance == null)
                 {
