@@ -860,11 +860,11 @@ PlayerSettings:
     m_VersionName: 
   apiCompatibilityLevel: 6
   activeInputHandler: 0
-  cloudProjectId: a09b17f8-14ad-4846-82d7-bec6a9edeb19
+  cloudProjectId: 8a5f7533-7c81-4642-a089-d958d911868c
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
   projectName: ChickenBomber
-  organizationId: unity_e6912149e83801c31d21
+  organizationId: wertwer
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   playerDataPath: 
