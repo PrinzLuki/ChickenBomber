@@ -52,7 +52,7 @@ public class BaseBird : MonoBehaviour
             StartCoroutine(DeactivationTimeSpan());
 
         if (other.gameObject.GetComponent<IDamageable>() != null)
-            other.gameObject.GetComponent<IDamageable>().GetDmg(stats.GetDmgValue());
+            other.gameObject.GetComponent<IDamageable>().GetDmg(rb);
     }
 
     protected IEnumerator DeactivationTimeSpan()

@@ -37,7 +37,6 @@ public class Slingshot : MonoBehaviour
         currentState = SlingshotState.None;
         cam = Camera.main;
         offset = transform.position.z - cam.nearClipPlane;
-        StartCoroutine(ReloadSlingShot(currentBirdRb.transform));
     }
 
     void OnDestroy()
@@ -60,14 +59,23 @@ public class Slingshot : MonoBehaviour
         }
         else if (InputManager.Instance.MouseButtonUp() && currentState == SlingshotState.Loaded)
         {
-            currentBirdRb.GetComponent<BaseBird>().SetisLaunched(true);
-            trajectoryLine.SetTrajectoryLineActive(false);
-            currentState = SlingshotState.Shot;
-            currentBirdRb.useGravity = true;
-            currentBirdRb.AddForce(CalculateVelocity(),ForceMode.Impulse);
+            var bird = currentBirdRb.GetComponent<BaseBird>();
+
+            SetSlingShotShot();
+            LaunchBird(bird);
         }
     }
 
+    void SetSlingShotShot()
+    {
+        trajectoryLine.SetTrajectoryLineActive(false);
+        currentState = SlingshotState.Shot;
+    }
+    void LaunchBird(BaseBird bird)
+    {
+        bird.SetisLaunched(true);
+        currentBirdRb.AddForce(CalculateVelocity(), ForceMode.Impulse);
+    }
     void StartReloadingSlingShot(Rigidbody bird)
     {
         currentBirdRb = bird;
