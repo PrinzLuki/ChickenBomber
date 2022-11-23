@@ -149,7 +149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 1
-  attackDmg: 10
+  attackDmg: 0
 --- !u!114 &4093311839774915536
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -162,7 +162,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0f91f64361923e4baed636ebaa95504, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isLaunched: 0
   boostSpeed: 150
+  abilityTimeSpan: 0
+  directionOffset: {x: 0, y: 0, z: 0}
 --- !u!135 &4093311839774915533
 SphereCollider:
   m_ObjectHideFlags: 0

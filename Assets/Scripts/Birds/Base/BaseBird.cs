@@ -71,5 +71,4 @@ public class BaseBird : MonoBehaviour
     {
         this.isLaunched = isLaunched;
     }
-
 }
