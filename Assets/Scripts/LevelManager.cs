@@ -111,8 +111,9 @@ public class LevelManager : MonoBehaviour
     private void NextBird()
     {
         currentBirdIndex++;
-        if (currentBirdIndex > spawnedBirds.Length -1)
+        if (currentBirdIndex > spawnedBirds.Length - 1)
         {
+            currentBirdIndex = spawnedBirds.Length - 1;
             Debug.Log("No more birds");
             return;
         }
@@ -130,7 +131,7 @@ public class LevelManager : MonoBehaviour
         for (int i = nextBirdsIndex; i < spawnedBirds.Length; i++)
         {
             Vector3 newSpawnOffset = new Vector3(spawnOffset.x * offsetIndex, spawnOffset.y, spawnOffset.z);
-            spawnedBirds[i].transform.position =  spawnLocation + newSpawnOffset;
+            spawnedBirds[i].transform.position = spawnLocation + newSpawnOffset;
             offsetIndex++;
         }
 
