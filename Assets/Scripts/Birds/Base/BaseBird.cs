@@ -12,6 +12,7 @@ public class BaseBird : MonoBehaviour
     protected float deActivationTime;
 
     public event Action OnDeactivationBird;
+    public event Action OnDestroyBird;
     public bool isLaunched = false;
 
     private void Awake()
@@ -20,6 +21,11 @@ public class BaseBird : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.useGravity = false;
         rb.constraints = RigidbodyConstraints.FreezePositionZ;
+    }
+
+    protected void OnDestroy()
+    {
+        OnDestroyBird?.Invoke();
     }
 
     public virtual void EnableAbility()
@@ -60,4 +66,10 @@ public class BaseBird : MonoBehaviour
     {
         return rb;
     }
+
+    public void SetisLaunched(bool isLaunched)
+    {
+        this.isLaunched = isLaunched;
+    }
+
 }

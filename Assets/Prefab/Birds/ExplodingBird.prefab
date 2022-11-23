@@ -267,7 +267,7 @@ GameObject:
   - component: {fileID: 8717243192827906304}
   - component: {fileID: 8717243192827906305}
   m_Layer: 0
-  m_Name: CatBox4
+  m_Name: ExplodingBird
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
