@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5541016578624656350}
   - component: {fileID: 5541016578624656349}
   - component: {fileID: 4637955180848893969}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: ExplodingBird
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,7 +108,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5394893905088127257}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: joint11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -139,7 +139,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5394893905088135007}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: joint2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -174,7 +174,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5394893905088180079}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: joint1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -206,7 +206,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5394893905088123881}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: joint9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -238,7 +238,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5394893905088165311}
   - component: {fileID: 5394893905083165641}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: boxcat_poly:pCube8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -324,7 +324,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5394893905088128589}
   - component: {fileID: 5394893905083041951}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: boxcat_poly:pCube7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -410,7 +410,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5394893905088161119}
   - component: {fileID: 5394893905083092227}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: boxcat_poly:pCube6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -496,7 +496,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5394893905088096677}
   - component: {fileID: 5394893905083116189}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: boxcat_poly:pCube9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -581,7 +581,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5394893905088161039}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: joint7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -612,7 +612,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5394893905088142957}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: joint10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -645,7 +645,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5394893905088155747}
   - component: {fileID: 5394893905083083567}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: cat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -732,7 +732,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5394893905088105035}
   - component: {fileID: 5394893905083068691}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: boxcat_poly:pCube2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -818,7 +818,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5394893905088156037}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: joint3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -849,7 +849,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5394893905088212643}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: joint5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -881,7 +881,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5394893905088126809}
   - component: {fileID: 5394893905078845685}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: ExplodingBird
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -935,7 +935,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5394893905088118903}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -974,7 +974,7 @@ GameObject:
   - component: {fileID: 8131364745462280194}
   - component: {fileID: 8443459482223312928}
   - component: {fileID: 6214233379613764144}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: ExplosionEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}

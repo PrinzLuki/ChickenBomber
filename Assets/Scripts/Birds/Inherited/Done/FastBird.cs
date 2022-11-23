@@ -44,6 +44,8 @@ public class FastBird : BaseBird
     {
         base.OnCollisionEnter(other);
 
+        DisableAbility();
+
         if (routine == null) return;
         StopCoroutine(routine);
     }

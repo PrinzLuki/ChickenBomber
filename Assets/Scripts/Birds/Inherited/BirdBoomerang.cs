@@ -29,6 +29,8 @@ public class BirdBoomerang : BaseBird
     {
         base.OnCollisionEnter(other);
 
+        DisableAbility();
+
         if(routine == null) return;
         StopCoroutine(routine);
     }
