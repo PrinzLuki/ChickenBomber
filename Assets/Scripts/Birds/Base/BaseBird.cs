@@ -18,6 +18,8 @@ public class BaseBird : MonoBehaviour
     {
         stats = GetComponent<BaseStats>();
         rb = GetComponent<Rigidbody>();
+        rb.useGravity = false;
+        rb.constraints = RigidbodyConstraints.FreezePositionZ;
     }
 
     public virtual void EnableAbility()
@@ -40,7 +42,7 @@ public class BaseBird : MonoBehaviour
 
     protected virtual void OnCollisionEnter(Collision other)
     {
-
+        StartCoroutine(DeactivationTimeSpan());
 
         if (other.gameObject.GetComponent<IDamageable>() != null)
             other.gameObject.GetComponent<IDamageable>().GetDmg(stats.GetDmgValue());
@@ -49,6 +51,7 @@ public class BaseBird : MonoBehaviour
     protected IEnumerator DeactivationTimeSpan()
     {
         yield return new WaitForSeconds(deActivationTime);
+        Debug.Log("Deactivation TimeSpan Successfull Invoked");
         OnDeactivationBird?.Invoke();
     }
 
