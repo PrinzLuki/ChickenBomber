@@ -21,9 +21,10 @@ public class BaseBird : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.useGravity = false;
         rb.constraints = RigidbodyConstraints.FreezePositionZ;
+        GetComponent<Collider>().enabled = false;
     }
 
-    protected void OnDestroy()
+    protected virtual void OnDestroy()
     {
         OnDestroyBird?.Invoke();
     }
@@ -57,6 +58,7 @@ public class BaseBird : MonoBehaviour
 
     protected IEnumerator DeactivationTimeSpan()
     {
+        isLaunched = false;
         yield return new WaitForSeconds(deActivationTime);
         Debug.Log("Deactivation TimeSpan Successfull Invoked");
         OnDeactivationBird?.Invoke();
@@ -70,5 +72,8 @@ public class BaseBird : MonoBehaviour
     public void SetisLaunched(bool isLaunched)
     {
         this.isLaunched = isLaunched;
+        EnableAbility();
+        GetComponent<Collider>().enabled = isLaunched;
+        rb.useGravity = isLaunched;
     }
 }
