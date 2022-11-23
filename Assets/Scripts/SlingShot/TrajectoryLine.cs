@@ -12,18 +12,26 @@ public class TrajectoryLine : MonoBehaviour
     void Start()
     {
         lineRenderer.positionCount = steps;
+        lineRenderer.enabled = false;
     }
-    public void SetLineRenderPositions(Rigidbody rb,Vector2 currentPosition,Vector2 velocity)
+
+    public void SetTrajectoryLineActive(bool active)
     {
-        lineRenderer.SetPositions(CalculateTrajectoryLinePositions(rb, Vector2.zero, velocity, steps));
+        lineRenderer.enabled = active;
+    }
+    public void SetLineRenderPositions(Rigidbody rb,Vector3 currentPosition,Vector2 velocity)
+    {
+        lineRenderer.SetPositions(CalculateTrajectoryLinePositions(rb, currentPosition, velocity, steps));
     }
     Vector3[] CalculateTrajectoryLinePositions(Rigidbody rb,Vector3 currentPosition,Vector3 velocity,int steps)
     {
         Vector3[] positions = new Vector3[steps];
-        lineRenderer.SetPosition(0, transform.position);
+
+        lineRenderer.SetPosition(0,currentPosition);
+        positions[0] = currentPosition;
+
         float timeStep = Time.fixedDeltaTime * Physics2D.velocityIterations;
         Vector3 gravityAcceleration = Physics.gravity * rb.mass * timeStep * timeStep;
-        Debug.Log(gravityAcceleration);
         float drag = 1f - timeStep * rb.drag;
         Vector3 moveStep = velocity * timeStep;
 
@@ -32,7 +40,6 @@ public class TrajectoryLine : MonoBehaviour
             moveStep += gravityAcceleration;
             moveStep *= drag;
             currentPosition += moveStep;
-            Debug.Log(currentPosition);
             positions[i] = currentPosition;
         }
 
