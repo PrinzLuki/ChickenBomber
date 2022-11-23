@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class LevelManager : MonoBehaviour
@@ -26,6 +27,7 @@ public class LevelManager : MonoBehaviour
 
     [Header("Actions")]
     [SerializeField] private bool loadNextBird = false;
+    public static event Action<Rigidbody> OnReload;
 
     private void Start()
     {
@@ -91,6 +93,7 @@ public class LevelManager : MonoBehaviour
             return;
         }
         currentBirdInSlingshot = spawnedBirds[currentBirdIndex];
+        OnReload?.Invoke(currentBirdInSlingshot.GetComponent<Rigidbody>());
         currentBirdInSlingshot.transform.position = spawnLocation;
         UpdateOrder();
     }
