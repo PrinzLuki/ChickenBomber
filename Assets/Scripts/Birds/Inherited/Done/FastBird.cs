@@ -8,6 +8,7 @@ public class FastBird : BaseBird
     [SerializeField, Range(0, 1000)] float boostSpeed;
     [SerializeField, Range(0, 10)] float abilityTimeSpan;
     [SerializeField] Vector3 directionOffset;
+    Coroutine routine;
 
     private void Update()
     {
@@ -22,7 +23,7 @@ public class FastBird : BaseBird
     public override void UseAbility()
     {
         base.UseAbility();
-        StartCoroutine(OnAbilityTimeSpan());
+        routine = StartCoroutine(OnAbilityTimeSpan());
         Debug.Log("UsedBoost");
 
     }
@@ -42,6 +43,9 @@ public class FastBird : BaseBird
     protected override void OnCollisionEnter(Collision other)
     {
         base.OnCollisionEnter(other);
+
+        if (routine == null) return;
+        StopCoroutine(routine);
     }
 
     private void OnDrawGizmos()

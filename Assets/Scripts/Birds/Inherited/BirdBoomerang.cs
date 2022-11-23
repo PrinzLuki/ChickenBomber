@@ -28,6 +28,8 @@ public class BirdBoomerang : BaseBird
     protected override void OnCollisionEnter(Collision other)
     {
         base.OnCollisionEnter(other);
+
+        if(routine == null) return;
         StopCoroutine(routine);
     }
 
