@@ -12,7 +12,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private Vector3 spawnLocation;
     [SerializeField] private Quaternion spawnRotation;
     [Header("Birds")]
-    [SerializeField] private int currentBirdIndex = -1;
+    [SerializeField] private int currentBirdIndex = 0;
     [SerializeField] private GameObject currentBirdInSlingshot;
     [SerializeField] private GameObject[] spawnableBirds;
     [SerializeField] private GameObject[] spawnedBirds;
@@ -35,8 +35,6 @@ public class LevelManager : MonoBehaviour
 
         SpawnBirds();
 
-        //NextBird();
-
     }
 
     /// <summary>
@@ -55,6 +53,10 @@ public class LevelManager : MonoBehaviour
         SpawnBirdsInOrder();
 
         amountOfShots = spawnedBirds.Length;
+
+        currentBirdIndex = 0;
+
+        currentBirdInSlingshot = spawnedBirds[currentBirdIndex];
 
         OnReload?.Invoke(currentBirdInSlingshot.GetComponent<Rigidbody>());
     }
@@ -97,7 +99,7 @@ public class LevelManager : MonoBehaviour
         }
         currentBirdInSlingshot = spawnedBirds[currentBirdIndex];
         OnReload?.Invoke(currentBirdInSlingshot.GetComponent<Rigidbody>());
-        currentBirdInSlingshot.transform.position = spawnLocation;
+        //currentBirdInSlingshot.transform.position = spawnLocation;
         UpdateOrder();
     }
 
