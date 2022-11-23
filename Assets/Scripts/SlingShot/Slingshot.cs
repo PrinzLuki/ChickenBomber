@@ -10,7 +10,6 @@ public enum SlingshotState
 }
 public class Slingshot : MonoBehaviour
 {
-    [SerializeField] Rigidbody test;
     [Header("SlingShotSettings")]
     [SerializeField] Transform launchPoint;
     [SerializeField] float minPower;
@@ -35,11 +34,9 @@ public class Slingshot : MonoBehaviour
     void Start()
     {
         trajectoryLine = GetComponent<TrajectoryLine>();
-        currentBirdRb = test;
         currentState = SlingshotState.None;
         cam = Camera.main;
         offset = Mathf.Abs( transform.position.z - cam.nearClipPlane);
-        StartCoroutine(ReloadSlingShot(test.transform));
     }
 
     void OnDestroy()
