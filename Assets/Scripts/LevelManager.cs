@@ -7,7 +7,6 @@ public class LevelManager : MonoBehaviour
     [Header("Bird Amount")]
     [SerializeField] private int amountOfBirdsToSpawn;
     [Header("Spawn Settings")]
-    [SerializeField] private bool randomizeSpawn = false;
     [SerializeField] private Vector3 spawnOffset;
     [SerializeField] private Vector3 spawnLocation;
     [SerializeField] private Quaternion spawnRotation;
@@ -27,8 +26,6 @@ public class LevelManager : MonoBehaviour
 
     [Header("Actions")]
     [SerializeField] private bool loadNextBird = false;
-
-
 
     private void Start()
     {
@@ -53,17 +50,9 @@ public class LevelManager : MonoBehaviour
     /// </summary>
     private void SpawnBirds()
     {
-        if (randomizeSpawn)
-        {
-            SpawnBirdsRandom();
-        }
-        else
-        {
-            SpawnBirdsInOrder();
-        }
+        SpawnBirdsInOrder();
 
         amountOfShots = spawnedBirds.Length;
-
     }
 
     /// <summary>
@@ -82,6 +71,7 @@ public class LevelManager : MonoBehaviour
             Vector3 newSpawnOffset = new Vector3(spawnOffset.x * offsetIndex, spawnOffset.y, spawnOffset.z);
             offsetIndex++;
             GameObject birdClone = Instantiate(spawnableBirds[birdIndex], spawnLocation + newSpawnOffset, spawnRotation);
+            birdClone.GetComponent<BaseBird>().OnDeactivationBird += NextBird;
             spawnedBirds[i] = birdClone;
             birdIndex++;
             if (birdIndex > spawnableBirds.Length - 1) birdIndex = 0;
@@ -89,25 +79,8 @@ public class LevelManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Spawns the birds in a random order
+    /// "Reloads" the next bird
     /// </summary>
-    private void SpawnBirdsRandom()
-    {
-        if (spawnableBirds.Length < 0) return;
-
-        spawnedBirds = new GameObject[amountOfBirdsToSpawn];
-
-        for (int i = 0; i < spawnedBirds.Length; i++)
-        {
-            Vector3 newSpawnOffset = new Vector3(spawnOffset.x * offsetIndex, spawnOffset.y, spawnOffset.z);
-            offsetIndex++;
-            int randomInt = Random.Range(0, spawnableBirds.Length);
-            GameObject birdClone = Instantiate(spawnableBirds[randomInt], spawnLocation + newSpawnOffset, spawnRotation);
-            spawnedBirds[i] = birdClone;
-
-        }
-    }
-
     private void NextBird()
     {
         currentBirdIndex++;
@@ -122,6 +95,9 @@ public class LevelManager : MonoBehaviour
         UpdateOrder();
     }
 
+    /// <summary>
+    /// Updates the order of the birds
+    /// </summary>
     private void UpdateOrder()
     {
         int nextBirdsIndex = currentBirdIndex + 1;
