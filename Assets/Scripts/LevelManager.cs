@@ -95,7 +95,9 @@ public class LevelManager : MonoBehaviour
         spawnedBirds.Remove(spawnedBirds[0]);
         OnReload?.Invoke(currentBirdInSlingshot.GetComponent<Rigidbody>());
         if (spawnedBirds.Count > 0)
-            StartCoroutine(UpdateOrder());
+        {
+            var routine = StartCoroutine(UpdateOrder());
+        }
     }
 
 
