@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8502275321947381537
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8502275321947381543}
+  - component: {fileID: 8502275321947381536}
+  m_Layer: 0
+  m_Name: LevelManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8502275321947381543
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8502275321947381537}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8502275321947381536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8502275321947381537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a32d1106a9acd13408389f7209e31fcc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slingshot: {fileID: 0}
+  amountOfBirdsToSpawn: 10
+  spawnOffset: {x: -1, y: 0, z: 0}
+  spawnLocation: {x: 0, y: 0, z: 0}
+  spawnRotation: {x: 0, y: 0.70710677, z: 0, w: 0.70710677}
+  currentBirdInSlingshot: {fileID: 0}
+  spawnableBirds:
+  - {fileID: 1010542976396720419, guid: b6efa449a91f3984bbb8763d019459a6, type: 3}
+  - {fileID: 8717243192828163826, guid: 5bb5c15aebd9f6747a5130fb2760cfa6, type: 3}
+  - {fileID: 4093311839767366507, guid: 250bcfb03eac723408f90b2f982f8066, type: 3}
+  - {fileID: 5677813940716907158, guid: 3c88884ecca8cf04c97d664749df0d64, type: 3}
+  spawnedBirds: []
+  amountOfShots: 0
+  currentPoints: 0
+  loadNextBird: 0
