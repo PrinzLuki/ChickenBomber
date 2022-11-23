@@ -23,10 +23,10 @@ public class LevelManager : MonoBehaviour
     [Header("Shots")]
     [SerializeField] private int amountOfShots;
     [Header("Points")]
-    [SerializeField] private float currentPoints;
-    [SerializeField] private float pointsNeededOneStar;
-    [SerializeField] private float pointsNeededTwoStar;
-    [SerializeField] private float pointsNeededThreeStar;
+    [SerializeField] private int currentPoints;
+    [SerializeField] private int pointsNeededOneStar;
+    [SerializeField] private int pointsNeededTwoStar;
+    [SerializeField] private int pointsNeededThreeStar;
 
     [Header("Actions")]
     [SerializeField] private bool loadNextBird = false;
