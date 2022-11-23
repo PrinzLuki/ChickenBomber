@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,6 +9,9 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private Transform slingshot;
     [Header("Bird Amount")]
     [SerializeField] private int amountOfBirdsToSpawn;
+    [Header("Order Update Settings")]
+    private float updateOrderTime = 2f;
+    private float updateOrderTimeBetweenBirds = 0.5f;
     [Header("Spawn Settings")]
     [SerializeField] private Vector3 spawnOffset;
     [SerializeField] private Vector3 spawnLocation;
@@ -53,6 +57,7 @@ public class LevelManager : MonoBehaviour
         currentBirdInSlingshot = spawnedBirds[0];
         spawnedBirds.Remove(spawnedBirds[0]);
         OnReload?.Invoke(currentBirdInSlingshot.GetComponent<Rigidbody>());
+        StartCoroutine(UpdateOrder());
     }
 
     /// <summary>
@@ -84,25 +89,35 @@ public class LevelManager : MonoBehaviour
     /// </summary>
     private void NextBird()
     {
+        if (spawnedBirds.Count <= 0) currentBirdInSlingshot = null;
         if (currentBirdInSlingshot == null || spawnedBirds.Count <= 0) return;
         currentBirdInSlingshot = spawnedBirds[0];
         spawnedBirds.Remove(spawnedBirds[0]);
         OnReload?.Invoke(currentBirdInSlingshot.GetComponent<Rigidbody>());
-        if (spawnedBirds.Count - 1 != 0)
-            UpdateOrder();
+        if (spawnedBirds.Count > 0)
+            StartCoroutine(UpdateOrder());
     }
+
 
     /// <summary>
     /// Updates the order of the birds
     /// </summary>
-    private void UpdateOrder()
+    private IEnumerator UpdateOrder()
     {
         int offsetIndex = 1;
-
         for (int i = 0; i < spawnedBirds.Count; i++)
         {
             Vector3 newSpawnOffset = new Vector3(spawnOffset.x * offsetIndex, spawnOffset.y, spawnOffset.z);
-            spawnedBirds[i].transform.position = spawnLocation + newSpawnOffset;
+
+            WaitForEndOfFrame wait = new WaitForEndOfFrame();
+            float t = 0;
+
+            while (t < updateOrderTimeBetweenBirds)
+            {
+                t += Time.deltaTime;
+                spawnedBirds[i].transform.position = Vector3.Slerp(spawnedBirds[i].transform.position, spawnLocation + newSpawnOffset, t / updateOrderTime);
+                yield return wait;
+            }
             offsetIndex++;
         }
 
