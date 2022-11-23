@@ -4,12 +4,12 @@ using UnityEngine;
 
 public enum SlingshotState
 {
+    None,
     Loaded,
     Shot
 }
 public class Slingshot : MonoBehaviour
 {
-    [SerializeField] Rigidbody bird;
     [Header("SlingShotSettings")]
     [SerializeField] Transform launchPoint;
     [SerializeField] float maxPower;
@@ -17,21 +17,32 @@ public class Slingshot : MonoBehaviour
     [SerializeField] float offset;
     [SerializeField] float powerMultiplier;
     [SerializeField] float reloadTime;
+
+    Rigidbody currentBirdRb;
     Vector2 startPosition;
     Vector2 currentPosition;
-    [SerializeField] SlingshotState currentState;
+    SlingshotState currentState;
 
     TrajectoryLine trajectoryLine;
     Camera cam;
 
+    void Awake()
+    {
+        LevelManager.OnReload += StartReloadingSlingShot;
+    }
     void Start()
     {
         trajectoryLine = GetComponent<TrajectoryLine>();
 
+        currentState = SlingshotState.None;
         cam = Camera.main;
         offset = transform.position.z - cam.nearClipPlane;
-        bird.useGravity = false;
-        StartCoroutine(ReloadSlingShot(bird.transform));
+        StartCoroutine(ReloadSlingShot(currentBirdRb.transform));
+    }
+
+    void OnDestroy()
+    {
+        LevelManager.OnReload -= StartReloadingSlingShot;
     }
     void Update()
     {
@@ -44,15 +55,16 @@ public class Slingshot : MonoBehaviour
         {
             SetCurrentPos(GetMousePos());
             trajectoryLine.SetTrajectoryLineActive(true);
-            trajectoryLine.SetLineRenderPositions(bird,transform.position + new Vector3(0,lineSpawnOffset,0),CalculateVelocity());
+            trajectoryLine.SetLineRenderPositions(currentBirdRb,transform.position + new Vector3(0,lineSpawnOffset,0),CalculateVelocity());
             return;
         }
         else if (InputManager.Instance.MouseButtonUp() && currentState == SlingshotState.Loaded)
         {
+            currentBirdRb.GetComponent<BaseBird>().SetisLaunched(true);
             trajectoryLine.SetTrajectoryLineActive(false);
             currentState = SlingshotState.Shot;
-            bird.useGravity = true;
-            bird.AddForce(CalculateVelocity(),ForceMode.Impulse);
+            currentBirdRb.useGravity = true;
+            currentBirdRb.AddForce(CalculateVelocity(),ForceMode.Impulse);
         }
     }
 
@@ -78,12 +90,15 @@ public class Slingshot : MonoBehaviour
     {
         WaitForEndOfFrame wait = new WaitForEndOfFrame();
         float t = 0;
+
         while (t < reloadTime)
         {
             t += Time.deltaTime;
             birdTransform.position = Vector3.Slerp(birdTransform.position, launchPoint.position, t / reloadTime);
             yield return wait;
         }
+
+        currentState = SlingshotState.Loaded;
     }
     void SetStartPos(Vector2 touchStartPos)
     {
