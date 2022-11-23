@@ -10,6 +10,7 @@ public enum SlingshotState
 }
 public class Slingshot : MonoBehaviour
 {
+    [SerializeField] Rigidbody test;
     [Header("SlingShotSettings")]
     [SerializeField] Transform launchPoint;
     [SerializeField] float maxPower;
@@ -21,7 +22,7 @@ public class Slingshot : MonoBehaviour
     Rigidbody currentBirdRb;
     Vector2 startPosition;
     Vector2 currentPosition;
-    SlingshotState currentState;
+   [SerializeField] SlingshotState currentState;
 
     TrajectoryLine trajectoryLine;
     Camera cam;
@@ -36,7 +37,8 @@ public class Slingshot : MonoBehaviour
 
         currentState = SlingshotState.None;
         cam = Camera.main;
-        offset = transform.position.z - cam.nearClipPlane;
+        offset = Mathf.Abs( transform.position.z - cam.nearClipPlane);
+        StartCoroutine(ReloadSlingShot(test.transform));
     }
 
     void OnDestroy()
@@ -48,6 +50,7 @@ public class Slingshot : MonoBehaviour
         if (InputManager.Instance.MouseButtonDown() && currentState == SlingshotState.Loaded)
         {
             SetStartPos(GetMousePos());
+            CameraController.Instance.SetViewTarget(currentBirdRb.transform);
             return;
         }
         else if (InputManager.Instance.IsDragging() && currentState == SlingshotState.Loaded) 

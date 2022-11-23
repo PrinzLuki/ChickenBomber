@@ -9,17 +9,16 @@ public class BaseStats : MonoBehaviour, IDamageable
     [SerializeField] private float health;
     [SerializeField] private float attackDmg;
 
-    public void GetDmg(Rigidbody rb)
+    public void GetDmg(Rigidbody rb,float baseDmg)
     {
         CalculateDmg(out float dmg,rb);
-
+       
         if (dmg == 0) return;
 
-        health -= dmg;
-
-        if(health <= 0)
+        health -= dmg + baseDmg;
+        
+        if (health <= 0)
         {
-            Debug.Log("Health 0, " + gameObject.name + " is dead");
             Destroy(gameObject);
         }
     }
@@ -27,7 +26,7 @@ public class BaseStats : MonoBehaviour, IDamageable
     void CalculateDmg(out float dmg,Rigidbody rb)
     { 
         dmg = 0;
-        if (rb.velocity.magnitude * velocityDmgMultiplier < velocityThreshHold) return;
+        if (rb.velocity.magnitude < velocityThreshHold) return;
         dmg = rb.velocity.magnitude * velocityDmgMultiplier;
 
     }

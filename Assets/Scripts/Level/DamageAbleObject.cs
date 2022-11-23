@@ -8,7 +8,7 @@ public class DamageAbleObject : BaseStats
     {
         if (other.gameObject.TryGetComponent<Rigidbody>(out Rigidbody rb) && other.gameObject.TryGetComponent<IDamageable>(out IDamageable damageable))
         {
-            damageable.GetDmg(rb);
+            damageable.GetDmg(rb,GetDmgValue());
         }
     }
 }

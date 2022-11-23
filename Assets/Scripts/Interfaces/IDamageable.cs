@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IDamageable
 {
-    public void GetDmg(Rigidbody rb);
+    public void GetDmg(Rigidbody rb,float baseDmg);
 }
