@@ -14,7 +14,6 @@ public class TrajectoryLine : MonoBehaviour
         lineRenderer.positionCount = steps;
         lineRenderer.enabled = false;
     }
-
     public void SetTrajectoryLineActive(bool active)
     {
         lineRenderer.enabled = active;
@@ -41,7 +40,6 @@ public class TrajectoryLine : MonoBehaviour
             moveStep *= drag;
             currentPosition += moveStep;
 
-           
             positions[i] = currentPosition;
 
             if (i -1 >= 0 && NextPointCollides(positions[i -1], positions[i], out Vector3 hitPoint))
@@ -50,10 +48,7 @@ public class TrajectoryLine : MonoBehaviour
                 lineRenderer.positionCount = i;
                 break;
             }
-            if (i == steps)
-            {
-                lineRenderer.positionCount = steps;
-            }
+            lineRenderer.positionCount = steps;
         }
 
         return positions;

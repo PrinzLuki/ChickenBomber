@@ -51,7 +51,6 @@ public class Slingshot : MonoBehaviour
         if (InputManager.Instance.MouseButtonDown() && currentState == SlingshotState.Loaded)
         {
             SetStartPos(GetMousePos());
-            CameraController.Instance.SetViewTarget(currentBirdRb.transform);
             return;
         }
         else if (InputManager.Instance.IsDragging() && currentState == SlingshotState.Loaded) 
