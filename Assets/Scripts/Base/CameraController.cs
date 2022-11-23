@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum CameraState
+{   
+    Aiming,
+    Shot
+}
 public class CameraController : Singleton<CameraController>
 {
     [SerializeField] Transform defaultViewTarget;
@@ -12,17 +17,23 @@ public class CameraController : Singleton<CameraController>
     [SerializeField] float defaultFov;
 
     Camera mainCamera;
+    CameraState currentState;
     float defaultZPos;
 
     void Start()
     {
+        currentState = CameraState.Shot;
         mainCamera = Camera.main;
         defaultZPos = transform.position.z;
-        viewTarget = defaultViewTarget;
     }
     void Update()
     {
         MoveToViewTargetPosition();
+        AdjustFov();
+    }
+    public void SetCameraState(CameraState newState)
+    {
+        currentState = newState;
     }
     public void SetViewTarget(Transform newViewTarget)
     {
@@ -36,9 +47,17 @@ public class CameraController : Singleton<CameraController>
             var viewTargetPos = new Vector3(viewTarget.position.x, viewTarget.position.y, defaultZPos);
             mainCamera.transform.position = Vector3.SmoothDamp(mainCamera.transform.position, viewTargetPos, ref cameraVelocity, smoothTime, maxSpeed);
         }
-        else
+    }
+    void AdjustFov()
+    {
+        switch (currentState)
         {
-            viewTarget = defaultViewTarget;
+            case CameraState.Aiming:
+                mainCamera.fieldOfView = Mathf.Lerp(mainCamera.fieldOfView, aimingFov, Time.deltaTime);
+                break;
+            case CameraState.Shot:
+                mainCamera.fieldOfView = Mathf.Lerp(mainCamera.fieldOfView, defaultFov, Time.deltaTime);
+                break;
         }
     }
 }

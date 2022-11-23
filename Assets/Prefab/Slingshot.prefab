@@ -502,7 +502,7 @@ MonoBehaviour:
   collisionMask:
     serializedVersion: 2
     m_Bits: 128
-  steps: 200
+  steps: 500
 --- !u!114 &694552141
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -515,7 +515,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e9f82600e221ad46af2659cc9f814cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  test: {fileID: 0}
   launchPoint: {fileID: 573357837}
   minPower: 3
   maxPower: 20
@@ -544,7 +543,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a7227a98e3a785c4da09b55bf3f555ac, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -47,6 +47,7 @@ public class Slingshot : MonoBehaviour
     {
         if (InputManager.Instance.MouseButtonDown() && currentState == SlingshotState.Loaded)
         {
+            CameraController.Instance.SetCameraState(CameraState.Aiming);
             SetStartPos(GetMousePos());
             return;
         }
@@ -60,12 +61,14 @@ public class Slingshot : MonoBehaviour
         else if (InputManager.Instance.MouseButtonUp() && currentState == SlingshotState.Loaded && CalculateVelocity().magnitude > minPower)
         {
             var bird = currentBirdRb.GetComponent<BaseBird>();
+            CameraController.Instance.SetCameraState(CameraState.Shot);
             SetSlingShotShot();
             LaunchBird(bird);
         }
         else if (InputManager.Instance.MouseButtonUp() && currentState == SlingshotState.Loaded &&
                  CalculateVelocity().magnitude < minPower)
         {
+            CameraController.Instance.SetCameraState(CameraState.Shot);
             trajectoryLine.SetTrajectoryLineActive(false);
         }
     }
