@@ -84,7 +84,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 10
-  attackDmg: 10
+  attackDmg: 0
 --- !u!54 &5677813940724338066
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -113,6 +113,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90accf014b94a1f4bb8e8bb7be39b58e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isLaunched: 0
   mass: 50
   forceToPushDown: 1000
   forceTime: 5
