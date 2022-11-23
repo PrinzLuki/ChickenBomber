@@ -10,8 +10,10 @@ public enum SlingshotState
 }
 public class Slingshot : MonoBehaviour
 {
+    [SerializeField] Rigidbody test;
     [Header("SlingShotSettings")]
     [SerializeField] Transform launchPoint;
+    [SerializeField] float minPower;
     [SerializeField] float maxPower;
     [SerializeField] float lineSpawnOffset;
     [SerializeField] float offset;
@@ -21,7 +23,7 @@ public class Slingshot : MonoBehaviour
     Rigidbody currentBirdRb;
     Vector2 startPosition;
     Vector2 currentPosition;
-    SlingshotState currentState;
+   [SerializeField] SlingshotState currentState;
 
     TrajectoryLine trajectoryLine;
     Camera cam;
@@ -33,10 +35,11 @@ public class Slingshot : MonoBehaviour
     void Start()
     {
         trajectoryLine = GetComponent<TrajectoryLine>();
-
+        currentBirdRb = test;
         currentState = SlingshotState.None;
         cam = Camera.main;
-        offset = transform.position.z - cam.nearClipPlane;
+        offset = Mathf.Abs( transform.position.z - cam.nearClipPlane);
+        StartCoroutine(ReloadSlingShot(test.transform));
     }
 
     void OnDestroy()
@@ -57,12 +60,16 @@ public class Slingshot : MonoBehaviour
             trajectoryLine.SetLineRenderPositions(currentBirdRb,transform.position + new Vector3(0,lineSpawnOffset,0),CalculateVelocity());
             return;
         }
-        else if (InputManager.Instance.MouseButtonUp() && currentState == SlingshotState.Loaded)
+        else if (InputManager.Instance.MouseButtonUp() && currentState == SlingshotState.Loaded && CalculateVelocity().magnitude > minPower)
         {
             var bird = currentBirdRb.GetComponent<BaseBird>();
-
             SetSlingShotShot();
             LaunchBird(bird);
+        }
+        else if (InputManager.Instance.MouseButtonUp() && currentState == SlingshotState.Loaded &&
+                 CalculateVelocity().magnitude < minPower)
+        {
+            trajectoryLine.SetTrajectoryLineActive(false);
         }
     }
 
@@ -79,6 +86,7 @@ public class Slingshot : MonoBehaviour
     void StartReloadingSlingShot(Rigidbody bird)
     {
         currentBirdRb = bird;
+        CameraController.Instance.SetViewTarget(bird.transform);
         StartCoroutine(ReloadSlingShot(bird.transform));
     }
     Vector2 GetMousePos()

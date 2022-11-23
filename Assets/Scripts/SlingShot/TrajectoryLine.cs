@@ -6,15 +6,14 @@ using UnityEngine;
 public class TrajectoryLine : MonoBehaviour
 {
     [SerializeField] LineRenderer lineRenderer;
+    [SerializeField] LayerMask collisionMask;
     [SerializeField] int steps;
     
-
     void Start()
     {
         lineRenderer.positionCount = steps;
         lineRenderer.enabled = false;
     }
-
     public void SetTrajectoryLineActive(bool active)
     {
         lineRenderer.enabled = active;
@@ -40,9 +39,25 @@ public class TrajectoryLine : MonoBehaviour
             moveStep += gravityAcceleration;
             moveStep *= drag;
             currentPosition += moveStep;
+
             positions[i] = currentPosition;
+
+            if (i -1 >= 0 && NextPointCollides(positions[i -1], positions[i], out Vector3 hitPoint))
+            {
+                positions[i] = hitPoint;
+                lineRenderer.positionCount = i;
+                break;
+            }
+            lineRenderer.positionCount = steps;
         }
 
         return positions;
+    }
+
+    bool NextPointCollides(Vector3 previousPoint,Vector3 currentPoint,out Vector3 hitPoint)
+    {
+        bool hit = Physics.Raycast(previousPoint, currentPoint - previousPoint, out RaycastHit rayHit, (previousPoint - currentPoint).magnitude, collisionMask);
+        hitPoint = rayHit.point;
+        return hit;
     }
 }
