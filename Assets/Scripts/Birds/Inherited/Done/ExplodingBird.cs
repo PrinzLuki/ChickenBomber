@@ -17,12 +17,12 @@ public class ExplodingBird : BaseBird
     public override void UseAbility()
     {
         base.UseAbility();
-
         Destroy(gameObject);
     }
 
-    private void OnDestroy()
+    protected override void OnDestroy()
     {
+        base.OnDestroy();
         //Effects play for exploding
         Debug.Log("Explosion Ability");
     }
