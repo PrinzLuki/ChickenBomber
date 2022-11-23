@@ -97,6 +97,8 @@ public class Slingshot : MonoBehaviour
             birdTransform.position = Vector3.Slerp(birdTransform.position, launchPoint.position, t / reloadTime);
             yield return wait;
         }
+
+        currentState = SlingshotState.Loaded;
     }
     void SetStartPos(Vector2 touchStartPos)
     {
