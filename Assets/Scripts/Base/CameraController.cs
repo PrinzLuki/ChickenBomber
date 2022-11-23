@@ -36,5 +36,9 @@ public class CameraController : Singleton<CameraController>
             var viewTargetPos = new Vector3(viewTarget.position.x, viewTarget.position.y, defaultZPos);
             mainCamera.transform.position = Vector3.SmoothDamp(mainCamera.transform.position, viewTargetPos, ref cameraVelocity, smoothTime, maxSpeed);
         }
+        else
+        {
+            viewTarget = defaultViewTarget;
+        }
     }
 }

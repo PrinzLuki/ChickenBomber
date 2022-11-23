@@ -87,6 +87,7 @@ public class Slingshot : MonoBehaviour
     void StartReloadingSlingShot(Rigidbody bird)
     {
         currentBirdRb = bird;
+        CameraController.Instance.SetViewTarget(bird.transform);
         StartCoroutine(ReloadSlingShot(bird.transform));
     }
     Vector2 GetMousePos()

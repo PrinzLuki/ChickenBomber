@@ -9,7 +9,6 @@ public class TrajectoryLine : MonoBehaviour
     [SerializeField] LayerMask collisionMask;
     [SerializeField] int steps;
     
-
     void Start()
     {
         lineRenderer.positionCount = steps;
@@ -47,7 +46,6 @@ public class TrajectoryLine : MonoBehaviour
 
             if (i -1 >= 0 && NextPointCollides(positions[i -1], positions[i], out Vector3 hitPoint))
             {
-                Debug.Log(hitPoint);
                 positions[i] = hitPoint;
                 lineRenderer.positionCount = i;
                 break;
