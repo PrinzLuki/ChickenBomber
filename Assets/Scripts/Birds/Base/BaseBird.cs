@@ -9,10 +9,10 @@ public class BaseBird : MonoBehaviour
     protected BaseStats stats;
     protected Rigidbody rb;
     protected bool isAbilityEnabled = false;
-
     protected float deActivationTime;
 
     public event Action OnDeactivationBird;
+    public bool isLaunched = false;
 
     private void Awake()
     {
@@ -42,12 +42,13 @@ public class BaseBird : MonoBehaviour
 
     protected virtual void OnCollisionEnter(Collision other)
     {
-        StartCoroutine(DeactivationTimeSpan());
+        if (isLaunched)
+            StartCoroutine(DeactivationTimeSpan());
 
         if (other.gameObject.GetComponent<IDamageable>() != null)
             other.gameObject.GetComponent<IDamageable>().GetDmg(stats.GetDmgValue());
     }
-    
+
     protected IEnumerator DeactivationTimeSpan()
     {
         yield return new WaitForSeconds(deActivationTime);
