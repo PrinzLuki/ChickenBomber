@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelManager : MonoBehaviour
@@ -12,18 +13,13 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private Vector3 spawnLocation;
     [SerializeField] private Quaternion spawnRotation;
     [Header("Birds")]
-    [SerializeField] private int currentBirdIndex = 0;
     [SerializeField] private GameObject currentBirdInSlingshot;
     [SerializeField] private GameObject[] spawnableBirds;
-    [SerializeField] private GameObject[] spawnedBirds;
+    [SerializeField] private List<GameObject> spawnedBirds;
     [Header("Shots")]
     [SerializeField] private int amountOfShots;
     [Header("Points")]
     [SerializeField] private float currentPoints;
-
-
-    [Header("Other Settings")]
-    private int offsetIndex = 1;
 
     [Header("Actions")]
     [SerializeField] private bool loadNextBird = false;
@@ -52,12 +48,10 @@ public class LevelManager : MonoBehaviour
     {
         SpawnBirdsInOrder();
 
-        amountOfShots = spawnedBirds.Length;
+        amountOfShots = amountOfBirdsToSpawn;
 
-        currentBirdIndex = 0;
-
-        currentBirdInSlingshot = spawnedBirds[currentBirdIndex];
-
+        currentBirdInSlingshot = spawnedBirds[0];
+        spawnedBirds.Remove(spawnedBirds[0]);
         OnReload?.Invoke(currentBirdInSlingshot.GetComponent<Rigidbody>());
     }
 
@@ -68,18 +62,18 @@ public class LevelManager : MonoBehaviour
     {
         if (spawnableBirds.Length < 0) return;
 
-        spawnedBirds = new GameObject[amountOfBirdsToSpawn];
+        spawnedBirds = new List<GameObject>();
 
         int birdIndex = 0;
+        int offsetIndex = 1;
 
-        for (int i = 0; i < spawnedBirds.Length; i++)
+        for (int i = 0; i < amountOfBirdsToSpawn; i++)
         {
             Vector3 newSpawnOffset = new Vector3(spawnOffset.x * offsetIndex, spawnOffset.y, spawnOffset.z);
             offsetIndex++;
             GameObject birdClone = Instantiate(spawnableBirds[birdIndex], spawnLocation + newSpawnOffset, spawnRotation);
             birdClone.GetComponent<BaseBird>().OnDeactivationBird += NextBird;
-            //birdClone.GetComponent<BaseBird>().OnDestroyBird += RemoveBirdFromArray;
-            spawnedBirds[i] = birdClone;
+            spawnedBirds.Add(birdClone);
             birdIndex++;
             if (birdIndex > spawnableBirds.Length - 1) birdIndex = 0;
         }
@@ -90,17 +84,12 @@ public class LevelManager : MonoBehaviour
     /// </summary>
     private void NextBird()
     {
-        currentBirdIndex++;
-        if (currentBirdIndex > spawnedBirds.Length - 1)
-        {
-            currentBirdIndex = spawnedBirds.Length - 1;
-            Debug.Log("No more birds");
-            return;
-        }
-        currentBirdInSlingshot = spawnedBirds[currentBirdIndex];
+        if (currentBirdInSlingshot == null || spawnedBirds.Count <= 0) return;
+        currentBirdInSlingshot = spawnedBirds[0];
+        spawnedBirds.Remove(spawnedBirds[0]);
         OnReload?.Invoke(currentBirdInSlingshot.GetComponent<Rigidbody>());
-        //currentBirdInSlingshot.transform.position = spawnLocation;
-        UpdateOrder();
+        if (spawnedBirds.Count - 1 != 0)
+            UpdateOrder();
     }
 
     /// <summary>
@@ -108,24 +97,16 @@ public class LevelManager : MonoBehaviour
     /// </summary>
     private void UpdateOrder()
     {
-        int nextBirdsIndex = currentBirdIndex + 1;
+        int offsetIndex = 1;
 
-        offsetIndex = 1;
-
-        for (int i = nextBirdsIndex; i < spawnedBirds.Length; i++)
+        for (int i = 0; i < spawnedBirds.Count; i++)
         {
-            if (spawnedBirds[i] == null) continue;
-
             Vector3 newSpawnOffset = new Vector3(spawnOffset.x * offsetIndex, spawnOffset.y, spawnOffset.z);
             spawnedBirds[i].transform.position = spawnLocation + newSpawnOffset;
             offsetIndex++;
         }
 
     }
-
-    //private void RemoveBirdFromArray()
-    //{
-    //}
 
     private void OnValidate()
     {
