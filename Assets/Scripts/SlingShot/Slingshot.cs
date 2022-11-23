@@ -13,6 +13,7 @@ public class Slingshot : MonoBehaviour
     [SerializeField] Rigidbody test;
     [Header("SlingShotSettings")]
     [SerializeField] Transform launchPoint;
+    [SerializeField] float minPower;
     [SerializeField] float maxPower;
     [SerializeField] float lineSpawnOffset;
     [SerializeField] float offset;
@@ -34,7 +35,7 @@ public class Slingshot : MonoBehaviour
     void Start()
     {
         trajectoryLine = GetComponent<TrajectoryLine>();
-
+        currentBirdRb = test;
         currentState = SlingshotState.None;
         cam = Camera.main;
         offset = Mathf.Abs( transform.position.z - cam.nearClipPlane);
@@ -60,12 +61,16 @@ public class Slingshot : MonoBehaviour
             trajectoryLine.SetLineRenderPositions(currentBirdRb,transform.position + new Vector3(0,lineSpawnOffset,0),CalculateVelocity());
             return;
         }
-        else if (InputManager.Instance.MouseButtonUp() && currentState == SlingshotState.Loaded)
+        else if (InputManager.Instance.MouseButtonUp() && currentState == SlingshotState.Loaded && CalculateVelocity().magnitude > minPower)
         {
             var bird = currentBirdRb.GetComponent<BaseBird>();
-
             SetSlingShotShot();
             LaunchBird(bird);
+        }
+        else if (InputManager.Instance.MouseButtonUp() && currentState == SlingshotState.Loaded &&
+                 CalculateVelocity().magnitude < minPower)
+        {
+            trajectoryLine.SetTrajectoryLineActive(false);
         }
     }
 
