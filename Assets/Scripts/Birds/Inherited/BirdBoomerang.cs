@@ -2,17 +2,52 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BirdBoomerang : MonoBehaviour
+public class BirdBoomerang : BaseBird
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] float timeSpanBoomerangForce;
+    [SerializeField] Vector3 boomerangDirection;
+    [SerializeField] float forceMultiplier;
+    Coroutine routine;
+    private void Update()
     {
-        
+        if (!isAbilityEnabled) return;
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            UseAbility();
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void UseAbility()
     {
+        base.UseAbility();
         
+        routine = StartCoroutine(OnAbilityTimeSpan());
     }
+
+    protected override void OnCollisionEnter(Collision other)
+    {
+        base.OnCollisionEnter(other);
+        StopCoroutine(routine);
+    }
+
+    IEnumerator OnAbilityTimeSpan()
+    {
+        float timer = timeSpanBoomerangForce;
+        WaitForEndOfFrame wait = new WaitForEndOfFrame(); 
+
+        while (timer > 0)
+        {
+            timer -= Time.deltaTime;
+            rb.AddForce(boomerangDirection * forceMultiplier);
+            yield return wait;
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawRay(transform.position, boomerangDirection);
+    }
+
 }

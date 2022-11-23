@@ -92,7 +92,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1010542976396720419}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -7.88, y: 0.8799999, z: 4.13}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -148,7 +148,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 8
   m_CollisionDetection: 0
 --- !u!114 &1010542976396499231
 MonoBehaviour:
@@ -162,6 +162,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e69bf13c222809458e2abf7622b5566, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  velocityDmgMultiplier: 0
+  velocityThreshHold: 0
   health: 10
   attackDmg: 0
 --- !u!114 &1010542976396499230
@@ -176,6 +178,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9faf2da8eaa21404c986cd43423256b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnReloadTriggerTime: 1
   isLaunched: 0
   projectileAmount: 3
   startingProjectileDirection: 0.1

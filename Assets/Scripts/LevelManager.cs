@@ -72,7 +72,7 @@ public class LevelManager : MonoBehaviour
             Vector3 newSpawnOffset = new Vector3(spawnOffset.x * offsetIndex, spawnOffset.y, spawnOffset.z);
             offsetIndex++;
             GameObject birdClone = Instantiate(spawnableBirds[birdIndex], spawnLocation + newSpawnOffset, spawnRotation);
-            birdClone.GetComponent<BaseBird>().OnDeactivationBird += NextBird;
+            birdClone.GetComponent<BaseBird>().OnReloadBird += NextBird;
             spawnedBirds.Add(birdClone);
             birdIndex++;
             if (birdIndex > spawnableBirds.Length - 1) birdIndex = 0;

@@ -9,10 +9,10 @@ public class BaseBird : MonoBehaviour
     protected BaseStats stats;
     protected Rigidbody rb;
     protected bool isAbilityEnabled = false;
-    protected float deActivationTime;
+    [SerializeField] float OnReloadTriggerTime;
 
-    public event Action OnDeactivationBird;
-    public event Action OnDestroyBird;
+    public event Action OnReloadBird;
+    public static event Action OnDestroyBird;
     public bool isLaunched = false;
 
     private void Awake()
@@ -50,18 +50,18 @@ public class BaseBird : MonoBehaviour
     protected virtual void OnCollisionEnter(Collision other)
     {
         if (isLaunched)
-            StartCoroutine(DeactivationTimeSpan());
+            StartCoroutine(OnReloadTimeSpan());
 
         if (other.gameObject.GetComponent<IDamageable>() != null)
             other.gameObject.GetComponent<IDamageable>().GetDmg(rb);
     }
 
-    protected IEnumerator DeactivationTimeSpan()
+    protected IEnumerator OnReloadTimeSpan()
     {
         isLaunched = false;
-        yield return new WaitForSeconds(deActivationTime);
-        Debug.Log("Deactivation TimeSpan Successfull Invoked");
-        OnDeactivationBird?.Invoke();
+        yield return new WaitForSeconds(OnReloadTriggerTime);
+        Debug.LogWarning("Deactivation TimeSpan Successfull Invoked");
+        OnReloadBird?.Invoke();
     }
 
     public Rigidbody GetRb()
@@ -75,5 +75,10 @@ public class BaseBird : MonoBehaviour
         EnableAbility();
         GetComponent<Collider>().enabled = isLaunched;
         rb.useGravity = isLaunched;
+    }
+
+    protected void OnReloadDirectly()
+    {
+        OnReloadBird?.Invoke();
     }
 }

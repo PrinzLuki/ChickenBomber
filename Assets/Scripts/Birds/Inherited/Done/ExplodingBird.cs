@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class ExplodingBird : BaseBird
 {
+    [SerializeField] GameObject birdChild;
+    [SerializeField] ParticleSystem explosionEffect;
+    [SerializeField, Tooltip("The Amount of time to destroy this oject after the ability")] float lifeTimeSpan;
+
     private void Update()
     {
         if (!isAbilityEnabled) return;
@@ -14,17 +18,23 @@ public class ExplodingBird : BaseBird
         }
     }
 
+    //Exploding Ability
     public override void UseAbility()
     {
         base.UseAbility();
-        Destroy(gameObject);
+        birdChild.SetActive(false);
+        Debug.Log("Explosion Ability");
+        explosionEffect.Play();
+        GetComponent<Collider>().enabled = false;
+        Destroy(gameObject, lifeTimeSpan);
+        //Effects play for exploding
     }
+
 
     protected override void OnDestroy()
     {
         base.OnDestroy();
-        //Effects play for exploding
-        Debug.Log("Explosion Ability");
+        if (isLaunched) OnReloadDirectly();
     }
 
     protected override void OnCollisionEnter(Collision other)
