@@ -24,9 +24,13 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private int amountOfShots;
     [Header("Points")]
     [SerializeField] private float currentPoints;
+    [SerializeField] private float pointsNeededOneStar;
+    [SerializeField] private float pointsNeededTwoStar;
+    [SerializeField] private float pointsNeededThreeStar;
 
     [Header("Actions")]
     [SerializeField] private bool loadNextBird = false;
+    [SerializeField] private bool calculatePoints = false;
     public static event Action<Rigidbody> OnReload;
 
     private void Start()
@@ -89,6 +93,7 @@ public class LevelManager : MonoBehaviour
     /// </summary>
     private void NextBird()
     {
+        amountOfShots--;
         if (spawnedBirds.Count <= 0) currentBirdInSlingshot = null;
         if (currentBirdInSlingshot == null || spawnedBirds.Count <= 0) return;
         currentBirdInSlingshot = spawnedBirds[0];
@@ -125,12 +130,41 @@ public class LevelManager : MonoBehaviour
 
     }
 
+    private void CalculateOverallPoints()
+    {
+        if (currentPoints >= pointsNeededThreeStar)
+        {
+            //Three Star
+            Debug.Log("Three Star");
+        }
+        else if (currentPoints >= pointsNeededTwoStar && currentPoints < pointsNeededThreeStar)
+        {
+            //Two Star
+            Debug.Log("Two Star");
+        }
+        else if (currentPoints >= pointsNeededOneStar && currentPoints < pointsNeededTwoStar)
+        {
+            //One Star
+            Debug.Log("One Star");
+        }
+        else
+        {
+            //No Star
+            Debug.Log("No Star");
+        }
+    }
+
     private void OnValidate()
     {
         if (loadNextBird)
         {
             loadNextBird = false;
             NextBird();
+        }
+        if (calculatePoints)
+        {
+            calculatePoints = false;
+            CalculateOverallPoints();
         }
     }
 }
