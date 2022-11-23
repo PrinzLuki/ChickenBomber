@@ -2,10 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BirdMultipleProjectiles : BaseBird
+public class ExplodingBird : BaseBird
 {
-    [SerializeField] GameObject projectilePrefab;
-
     private void Update()
     {
         if (!isAbilityEnabled) return;
@@ -20,11 +18,14 @@ public class BirdMultipleProjectiles : BaseBird
     {
         base.UseAbility();
 
-        //spawn projectiles
-
-        //shoot projectiles in directions
+        Destroy(gameObject);
     }
 
+    private void OnDestroy()
+    {
+        //Effects play for exploding
+        Debug.Log("Explosion Ability");
+    }
 
     protected override void OnCollisionEnter(Collision other)
     {

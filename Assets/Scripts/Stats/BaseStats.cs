@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BaseStats : MonoBehaviour, IDamageable
 {
-    [SerializeField] protected float health;
+    [SerializeField] private float health;
     [SerializeField] private float attackDmg;
 
     public void GetDmg(float dmg)
