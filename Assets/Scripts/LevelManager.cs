@@ -35,7 +35,7 @@ public class LevelManager : MonoBehaviour
 
         SpawnBirds();
 
-        NextBird();
+        //NextBird();
 
     }
 
@@ -55,6 +55,8 @@ public class LevelManager : MonoBehaviour
         SpawnBirdsInOrder();
 
         amountOfShots = spawnedBirds.Length;
+
+        OnReload?.Invoke(currentBirdInSlingshot.GetComponent<Rigidbody>());
     }
 
     /// <summary>
@@ -74,6 +76,7 @@ public class LevelManager : MonoBehaviour
             offsetIndex++;
             GameObject birdClone = Instantiate(spawnableBirds[birdIndex], spawnLocation + newSpawnOffset, spawnRotation);
             birdClone.GetComponent<BaseBird>().OnDeactivationBird += NextBird;
+            //birdClone.GetComponent<BaseBird>().OnDestroyBird += RemoveBirdFromArray;
             spawnedBirds[i] = birdClone;
             birdIndex++;
             if (birdIndex > spawnableBirds.Length - 1) birdIndex = 0;
@@ -115,6 +118,10 @@ public class LevelManager : MonoBehaviour
         }
 
     }
+
+    //private void RemoveBirdFromArray()
+    //{
+    //}
 
     private void OnValidate()
     {
