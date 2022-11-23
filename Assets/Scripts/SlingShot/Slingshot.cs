@@ -70,6 +70,7 @@ public class Slingshot : MonoBehaviour
 
     void StartReloadingSlingShot(Rigidbody bird)
     {
+        currentBirdRb = bird;
         StartCoroutine(ReloadSlingShot(bird.transform));
     }
     Vector2 GetMousePos()
