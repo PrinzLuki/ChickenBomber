@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Advertisements;
 using UnityEngine;
 
 public class TrajectoryLine : MonoBehaviour
