@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5893290379581191915}
   - component: {fileID: 5893290379581191914}
+  - component: {fileID: 1302188595}
   m_Layer: 0
   m_Name: LevelManager
   m_TagString: Untagged
@@ -62,3 +63,20 @@ MonoBehaviour:
   pointsNeededThreeStar: 300
   loadNextBird: 0
   calculatePoints: 0
+--- !u!114 &1302188595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5893290379581191913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67fe50f7d9aebdb40861bbe82162f965, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textObjPrefab: {fileID: 129497066488498336, guid: 04daa77c60c61c44b98692247d6e2827,
+    type: 3}
+  popUpTargetScale: {x: 1.3, y: 1.3, z: 1.3}
+  popUpScaleSpeed: 0.04
+  popUpDestroyDelay: 1

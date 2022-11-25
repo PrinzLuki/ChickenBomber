@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2869903902372617305}
+  - component: {fileID: 2869903902372617309}
   - component: {fileID: 2869903902372617306}
   - component: {fileID: 2869903902372617307}
   - component: {fileID: 2869903902372617308}
-  - component: {fileID: 2869903902372617309}
   - component: {fileID: 5157479270775435046}
   m_Layer: 0
   m_Name: TestDmgable
@@ -36,6 +36,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2869903902372617309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2869903902372617310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5913a8208ec208843a6363f1bdfe0cb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  velocityDmgMultiplier: 4
+  velocityThreshHold: 0.25
+  health: 10
+  attackDmg: 1
+  rewardPoints: 300
+  popUpSpawnOffset: {x: 0, y: 0.5, z: 0}
 --- !u!33 &2869903902372617306
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -99,22 +117,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2869903902372617309
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2869903902372617310}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5913a8208ec208843a6363f1bdfe0cb8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  velocityDmgMultiplier: 4
-  velocityThreshHold: 0.25
-  health: 10
-  attackDmg: 1
 --- !u!54 &5157479270775435046
 Rigidbody:
   m_ObjectHideFlags: 0
