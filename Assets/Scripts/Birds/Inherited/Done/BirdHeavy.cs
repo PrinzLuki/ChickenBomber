@@ -43,5 +43,6 @@ public class BirdHeavy : BaseBird
     protected override void OnCollisionEnter(Collision other)
     {
         base.OnCollisionEnter(other);
+        DisableAbility();
     }
 }

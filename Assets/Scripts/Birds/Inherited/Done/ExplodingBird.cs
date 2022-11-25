@@ -40,5 +40,6 @@ public class ExplodingBird : BaseBird
     protected override void OnCollisionEnter(Collision other)
     {
         base.OnCollisionEnter(other);
+        UseAbility();
     }
 }
