@@ -64,8 +64,6 @@ public class LevelSelectionManager : MonoBehaviour
     {
         int levelToReachIndex = GetLevelIndex(levelToReach);
         int currentLevelIndex = GetLevelIndex(currentlySelectedLevel);
-        Debug.Log(levelToReachIndex);
-        Debug.Log(currentLevelIndex);
         currentlySelectedLevel = levelToReach;
       
         bool levelIsBehindCurrentLevel = levelToReachIndex < currentLevelIndex;

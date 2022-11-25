@@ -5,21 +5,32 @@ using UnityEngine;
 
 public class OverWorldCameraController : CameraController
 {
-    [SerializeField] float zOffset;
-    [SerializeField] float maxVelocity;
-    [SerializeField] float breakForce;
+    [SerializeField] Transform groundPlane;
     [SerializeField] Transform cameraBoundsCenter;
+    [SerializeField] float nearPlaneOffset;
+    [SerializeField] float maxVelocity;
+    [SerializeField] float cameraSpeedMultiplier;
+    [SerializeField] float breakForce;
     [SerializeField] Bounds cameraBounds;
 
     Rigidbody cameraRb;
-    Vector3 startDragPos;
-    Vector3 endDragPos;
+    [SerializeField]Vector3 startDragPos;
+    [SerializeField]Vector3 endDragPos;
     Vector3 offsetVector;
     protected override void Start()
     {
-        cameraBounds.center = cameraBoundsCenter.position;
         base.Start();
+        cameraBounds.center = cameraBoundsCenter.position;
+        cameraRb = GetComponent<Rigidbody>();
+        nearPlaneOffset = (transform.position.y - mainCamera.nearClipPlane) - groundPlane.position.y;
     }
+
+    protected override void Update()
+    {
+        base.Update();
+        ClampCameaPosition();
+    }
+
     public override void SetViewTarget(Transform newViewTarget)
     {
        Debug.Log("Empty but may come in handy for different usages");
@@ -29,18 +40,41 @@ public class OverWorldCameraController : CameraController
         if(InputManager.Instance.MouseButtonDown())
         {
             Vector3 mousePosScreen = Input.mousePosition;
-            startDragPos = mainCamera.ScreenToWorldPoint(mousePosScreen);
-
+            Vector3 mousePosWithNearplaneOffset = new Vector3(mousePosScreen.x, mousePosScreen.y, mainCamera.nearClipPlane + nearPlaneOffset);
+            startDragPos = mainCamera.ScreenToWorldPoint(mousePosWithNearplaneOffset);
         }
         else if (InputManager.Instance.MouseButtonUp())
         {
             Vector3 mousePosScreen = Input.mousePosition;
-            endDragPos = mainCamera.ScreenToWorldPoint(mousePosScreen);
+            Vector3 mousePosWithNearplaneOffset = new Vector3(mousePosScreen.x, mousePosScreen.y, mainCamera.nearClipPlane + nearPlaneOffset);
+            endDragPos = mainCamera.ScreenToWorldPoint(mousePosWithNearplaneOffset);
+            Debug.Log(endDragPos);
+            Vector3 velocity = CalculateVelocity();
+            cameraRb.AddForce(new Vector3(velocity.x,0,velocity.z),ForceMode.Impulse);
         }
     }
-
-    Vector3 CalculateVelocity(Vector3 startPos,Vector3 endPos)
+    Vector3 CalculateVelocity()
     {
-        return
+        Vector3 velocity;
+
+        velocity = (startDragPos - endDragPos) * cameraSpeedMultiplier;
+
+        return velocity;
+    }
+
+    void ClampCameaPosition()
+    {
+        if (!cameraBounds.Contains(transform.position))
+        {
+            transform.position = cameraBounds.ClosestPoint(transform.position);
+        }
+    }
+    void OnDrawGizmos()
+    {
+        if (cameraBoundsCenter != null)
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireCube(cameraBoundsCenter.position,cameraBounds.size);
+        }
     }
 }
