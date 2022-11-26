@@ -9,8 +9,11 @@ public enum CameraState
 }
 public class InGameCameraController : CameraController
 {
+    // maybe think about changing the position of the camera and not the fov because it stretches everything
+    [Header("CameraSettings")]
     [SerializeField] protected Transform defaultViewTarget;
     [SerializeField] protected Transform viewTarget;
+    [SerializeField] float sideViewOffset;
     [SerializeField] protected float aimingFov;
     [SerializeField] protected float defaultFov;
 
@@ -38,7 +41,7 @@ public class InGameCameraController : CameraController
         {
             var cameraVelocity = mainCamera.velocity;
 
-            var viewTargetPos = new Vector3(viewTarget.position.x, viewTarget.position.y, defaultZPos);
+            var viewTargetPos = new Vector3(viewTarget.position.x + sideViewOffset, viewTarget.position.y, defaultZPos);
             mainCamera.transform.position = Vector3.SmoothDamp(mainCamera.transform.position, viewTargetPos, ref cameraVelocity, smoothTime, maxSpeed);
         }
     }

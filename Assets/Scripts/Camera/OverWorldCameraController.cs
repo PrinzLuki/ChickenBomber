@@ -1,16 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 
 public class OverWorldCameraController : CameraController
 {
+    //break force is determined by the drag of the cameras rb
+
+    [Header("CameraSettings")]
     [SerializeField] Transform groundPlane;
     [SerializeField] Transform cameraBoundsCenter;
     [SerializeField] float nearPlaneOffset;
-    [SerializeField] float maxVelocity;
     [SerializeField] float cameraSpeedMultiplier;
-    [SerializeField] float breakForce;
     [SerializeField] Bounds cameraBounds;
 
     Rigidbody cameraRb;
@@ -29,6 +31,7 @@ public class OverWorldCameraController : CameraController
     {
         base.Update();
         ClampCameaPosition();
+        ClampVelocity();
     }
 
     public override void SetViewTarget(Transform newViewTarget)
@@ -62,6 +65,10 @@ public class OverWorldCameraController : CameraController
         return velocity;
     }
 
+    void ClampVelocity()
+    {
+        cameraRb.velocity = Vector3.ClampMagnitude(cameraRb.velocity,maxSpeed);
+    }
     void ClampCameaPosition()
     {
         if (!cameraBounds.Contains(transform.position))
