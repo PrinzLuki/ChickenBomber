@@ -9,6 +9,7 @@ public class OverWorldCameraController : CameraController
     //break force is determined by the drag of the cameras rb
 
     [Header("CameraSettings")]
+    [SerializeField] OverWorldRuntimeSaveData runtimeSaveData;
     [SerializeField] Transform groundPlane;
     [SerializeField] Transform cameraBoundsCenter;
     [SerializeField] float nearPlaneOffset;
@@ -25,6 +26,7 @@ public class OverWorldCameraController : CameraController
         cameraBounds.center = cameraBoundsCenter.position;
         cameraRb = GetComponent<Rigidbody>();
         nearPlaneOffset = (transform.position.y - mainCamera.nearClipPlane) - groundPlane.position.y;
+        transform.position = runtimeSaveData.lastPositionCamera;
     }
 
     protected override void Update()
@@ -51,7 +53,6 @@ public class OverWorldCameraController : CameraController
             Vector3 mousePosScreen = Input.mousePosition;
             Vector3 mousePosWithNearplaneOffset = new Vector3(mousePosScreen.x, mousePosScreen.y, mainCamera.nearClipPlane + nearPlaneOffset);
             endDragPos = mainCamera.ScreenToWorldPoint(mousePosWithNearplaneOffset);
-            Debug.Log(endDragPos);
             Vector3 velocity = CalculateVelocity();
             cameraRb.AddForce(new Vector3(velocity.x,0,velocity.z),ForceMode.Impulse);
         }

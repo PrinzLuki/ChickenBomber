@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class OverworldBird : MonoBehaviour
 {
+    [SerializeField] OverWorldRuntimeSaveData runtimeSaveData;
     [SerializeField] LevelSelectionWayPoint currentWaypointStandingOn;
     [SerializeField] float walkingSpeed;
 
@@ -18,6 +19,23 @@ public class OverworldBird : MonoBehaviour
 
     #endregion
 
+    void Awake()
+    {
+        LevelSelectionManager.SetCurrentLevel += SetCurrentWaypointStandingOn;
+    }
+    void Start()
+    {
+        transform.position = runtimeSaveData.lastPositionBird;
+    }
+
+    void OnDestroy()
+    {
+        LevelSelectionManager.SetCurrentLevel -= SetCurrentWaypointStandingOn;
+    }
+    void SetCurrentWaypointStandingOn(LevelSelectionWayPoint currentLevelWaypoint)
+    {
+        currentWaypointStandingOn = currentLevelWaypoint;
+    }
     public IEnumerator WalkToLevel(Path[] pathsToWalk,LevelSelectionWayPoint wayPointToReach)
     {
         if (canWalk == false || pathsToWalk == null) yield break;
@@ -28,20 +46,18 @@ public class OverworldBird : MonoBehaviour
 
         IsLevelLoadable?.Invoke(canWalk);
 
-        Debug.Log("StartedWalkingPaths");
-
         for (int i = 0; i < pathsToWalk.Length; i++)
         {
-            Debug.Log(pathsToWalk[i]);
+            
             Transform[] waypointPositions = pathsToWalk[i].GetPathWayPoints();
 
             for (int j = 0; j < waypointPositions.Length; j++)
             {
+                transform.forward = (waypointPositions[j].position - transform.position).normalized;
+
                 while (waypointPositions[j].position != transform.position)
                 {
                     transform.position = Vector3.MoveTowards(transform.position, waypointPositions[j].position, walkingSpeed * Time.deltaTime);
-
-                    Debug.Log("WalkingPath");
 
                     yield return wait;
                 }
