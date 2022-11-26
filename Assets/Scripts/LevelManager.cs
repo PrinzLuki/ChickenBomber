@@ -20,6 +20,9 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private GameObject currentBirdInSlingshot;
     [SerializeField] private GameObject[] spawnableBirds;
     [SerializeField] private List<GameObject> spawnedBirds;
+    [Header("Enemies")]
+    [SerializeField] private int amountOfEnemies;
+    [SerializeField] private List<GameObject> spawnedEnemies;
     [Header("Shots")]
     [SerializeField] private int amountOfShots;
     [Header("Points")]
@@ -28,6 +31,8 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private int pointsNeededTwoStar;
     [SerializeField] private int pointsNeededThreeStar;
 
+
+
     [Header("Actions")]
     [SerializeField] private bool loadNextBird = false;
     [SerializeField] private bool calculatePoints = false;
@@ -35,10 +40,16 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
+        CheckLevelProfile();
+
         GetSpawnTransform();
+
+        GetSpawnedEnemies();
 
         SpawnBirds();
 
+        DamageableEntity.OnDestroyObject += AddPointsEntity;
+        DamageableEnemyEntity.OnDestroyEnemyObject += AddPointsEnemy;
     }
 
     /// <summary>
@@ -47,6 +58,16 @@ public class LevelManager : MonoBehaviour
     private void GetSpawnTransform()
     {
         spawnLocation = slingshot.position;
+    }
+
+    private void GetSpawnedEnemies()
+    {
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            spawnedEnemies.Add(transform.GetChild(i).gameObject);
+        }
+
+        amountOfEnemies = spawnedEnemies.Count;
     }
 
     /// <summary>
@@ -94,8 +115,15 @@ public class LevelManager : MonoBehaviour
     private void NextBird()
     {
         amountOfShots--;
-        if (spawnedBirds.Count <= 0) currentBirdInSlingshot = null;
-        if (currentBirdInSlingshot == null || spawnedBirds.Count <= 0) return;
+        if (spawnedBirds.Count <= 0 || IsEnemiesKilled())
+        {
+            currentBirdInSlingshot = null;
+            //No more Birds
+            //Check Enemies and Points
+            CalculateOverallPoints();
+            SaveLevelPoints(currentPoints);
+            return;
+        }
         currentBirdInSlingshot = spawnedBirds[0];
         spawnedBirds.Remove(spawnedBirds[0]);
         OnReload?.Invoke(currentBirdInSlingshot.GetComponent<Rigidbody>());
@@ -127,7 +155,30 @@ public class LevelManager : MonoBehaviour
             }
             offsetIndex++;
         }
+    }
 
+    private void AddPointsEntity(int points, Vector3 _)
+    {
+        currentPoints += points;
+    }
+    private void AddPointsEnemy(int points, Vector3 _, GameObject enemy)
+    {
+        currentPoints += points;
+        spawnedEnemies.Remove(enemy);
+        amountOfEnemies -= 1;
+    }
+
+    private bool IsEnemiesKilled()
+    {
+        if (spawnedEnemies.Count <= 0)
+        {
+            return true;
+            //GET POINTS FOR REMAINING BIRDS
+        }
+        else
+        {
+            return false;
+        }
     }
 
     private void CalculateOverallPoints()
@@ -136,23 +187,95 @@ public class LevelManager : MonoBehaviour
         {
             //Three Star
             Debug.Log("Three Star");
+            SaveLevelFinished(true);
         }
         else if (currentPoints >= pointsNeededTwoStar && currentPoints < pointsNeededThreeStar)
         {
             //Two Star
             Debug.Log("Two Star");
+            SaveLevelFinished(true);
         }
         else if (currentPoints >= pointsNeededOneStar && currentPoints < pointsNeededTwoStar)
         {
             //One Star
             Debug.Log("One Star");
+            SaveLevelFinished(true);
         }
         else
         {
             //No Star
             Debug.Log("No Star");
+            SaveLevelFinished(false);
         }
     }
+
+
+    #region Saves
+    private void SaveLevelPoints(int points)
+    {
+        if (SaveData.LevelProfile.levelDatas[0].points < points)
+            SaveData.LevelProfile.levelDatas[0].points = points;
+        SaveLevelProfile();
+    }
+    private void SaveLevelFinished(bool value)
+    {
+        SaveData.LevelProfile.levelDatas[0].finished = value;
+        SaveLevelProfile();
+    }
+    private void SaveLevelUnlocked(bool value)
+    {
+        SaveData.LevelProfile.levelDatas[0 + 1].unlocked = value;
+        SaveLevelProfile();
+    }
+
+    private void CheckLevelProfile()
+    {
+        LoadLevelProfile();
+        if (!SaveData.LevelProfile.hasSaveData)
+        {
+            Debug.Log("has no levelprofile saved");
+            CreateNewLevelProfile();
+            Debug.Log(SaveData.LevelProfile.levelDatas[0].points);
+        }
+        else
+        {
+            Debug.Log("has levelprofile saved");
+            Debug.Log(SaveData.LevelProfile.levelDatas[0].points);
+        }
+    }
+
+    /// <summary>
+    /// Creates new levelprofile and saves it
+    /// </summary>
+    private void CreateNewLevelProfile()
+    {
+        SaveData.LevelProfile.levelDatas = new LevelData[1];
+
+        for (int i = 0; i < SaveData.LevelProfile.levelDatas.Length; i++)
+        {
+            SaveData.LevelProfile.levelDatas[i] = new LevelData();
+            SaveData.LevelProfile.levelDatas[i].finished = false;
+            SaveData.LevelProfile.levelDatas[i].unlocked = true;
+            SaveData.LevelProfile.levelDatas[i].points = 0;
+            SaveData.LevelProfile.levelDatas[i].name = "TEST";
+        }
+
+        SaveLevelProfile();
+
+    }
+
+    private void SaveLevelProfile()
+    {
+        SaveData.LevelProfile.hasSaveData = true;
+        SerializationManager.Save("levelData", SaveData.LevelProfile);
+    }
+
+    private void LoadLevelProfile()
+    {
+        SaveData.LevelProfile = (LevelProfile)SerializationManager.Load(Application.persistentDataPath + "/saves/levelData.cutebirds");
+    }
+
+    #endregion
 
     private void OnValidate()
     {

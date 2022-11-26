@@ -5,10 +5,10 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
-public class DamageAbleObject : BaseStats
+public class DamageableEntity : BaseStats
 {
-    [SerializeField] int rewardPoints;
-    [SerializeField] Vector3 popUpSpawnOffset;
+    [SerializeField] protected int rewardPoints;
+    [SerializeField] protected Vector3 popUpSpawnOffset;
 
     static public Action<int,Vector3> OnDestroyObject;
 
