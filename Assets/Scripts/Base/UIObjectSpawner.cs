@@ -16,11 +16,11 @@ public class UIObjectSpawner : MonoBehaviour
     {
         mainCamera = Camera.main;
 
-        DamageAbleObject.OnDestroyObject += SpawnPointsObject;
+        DamageableEntity.OnDestroyObject += SpawnPointsObject;
     }
     void OnDestroy()
     {
-        DamageAbleObject.OnDestroyObject -= SpawnPointsObject;
+        DamageableEntity.OnDestroyObject -= SpawnPointsObject;
     }
     public void SpawnPointsObject(int points,Vector3 position)
     {
