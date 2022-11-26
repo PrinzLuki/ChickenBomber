@@ -25,6 +25,9 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private List<GameObject> spawnedEnemies;
     [Header("Shots")]
     [SerializeField] private int amountOfShots;
+    [Header("Remaining Settings")]
+    [SerializeField] private int remainingBirdPoints;
+    [SerializeField] private Vector3 remainingPopUpOffset;
     [Header("Points")]
     [SerializeField] private int currentPoints;
     [SerializeField] private int pointsNeededOneStar;
@@ -37,6 +40,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private bool loadNextBird = false;
     [SerializeField] private bool calculatePoints = false;
     public static event Action<Rigidbody> OnReload;
+    public static event Action OnWin;
 
     private void Start()
     {
@@ -49,7 +53,6 @@ public class LevelManager : MonoBehaviour
         SpawnBirds();
 
         DamageableEntity.OnDestroyObject += AddPointsEntity;
-        DamageableEnemyEntity.OnDestroyEnemyObject += AddPointsEnemy;
     }
 
     /// <summary>
@@ -118,8 +121,10 @@ public class LevelManager : MonoBehaviour
         if (spawnedBirds.Count <= 0 || IsEnemiesKilled())
         {
             currentBirdInSlingshot = null;
-            //No more Birds
+            amountOfShots = 0;
             //Check Enemies and Points
+            OnWin?.Invoke();
+            AddPointsForRemainingBirds(remainingBirdPoints, remainingPopUpOffset);
             CalculateOverallPoints();
             SaveLevelPoints(currentPoints);
             return;
@@ -157,15 +162,33 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    private void AddPointsEntity(int points, Vector3 _)
+    private void AddPointsEntity(int points, Vector3 _, GameObject entity)
     {
         currentPoints += points;
+        if (spawnedEnemies.Contains(entity))
+        {
+            spawnedEnemies.Remove(entity);
+            amountOfEnemies -= 1;
+        }
     }
-    private void AddPointsEnemy(int points, Vector3 _, GameObject enemy)
+
+    private void AddPointsForRemainingBirds(int points, Vector3 popUpOffset)
     {
-        currentPoints += points;
-        spawnedEnemies.Remove(enemy);
-        amountOfEnemies -= 1;
+        StartCoroutine(SpawnPopUpPointRemaining(points, popUpOffset));
+    }
+
+    private IEnumerator SpawnPopUpPointRemaining(int points, Vector3 popUpOffset)
+    {
+        var pointPopUp = GetComponent<UIObjectSpawner>();
+        float pointMultiplier = 1f;
+        for (int i = 0; i < spawnedBirds.Count; i++)
+        {
+            pointPopUp.SpawnPointsObject(points, spawnedBirds[i].transform.position + popUpOffset, spawnedBirds[i]);
+            currentPoints += Mathf.FloorToInt(points * pointMultiplier);
+            pointMultiplier += 0.1f;
+            yield return new WaitForSeconds(1f);
+
+        }
     }
 
     private bool IsEnemiesKilled()
