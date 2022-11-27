@@ -34,7 +34,6 @@ public class ExplodingBird : BaseBird
     protected override void OnDestroy()
     {
         base.OnDestroy();
-        if (isLaunched) OnReloadDirectly();
     }
 
     protected override void OnCollisionEnter(Collision other)
