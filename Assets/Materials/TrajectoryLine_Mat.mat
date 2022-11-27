@@ -43,7 +43,7 @@ Material:
     - _QueueOffset: 0
     m_Colors:
     - _ScrollSpeed: {r: -2, g: 0, b: 0, a: 0}
-    - _Tilling: {r: 10, g: 1, b: 0, a: 0}
+    - _Tilling: {r: 5, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &3296501976786681842
 MonoBehaviour:

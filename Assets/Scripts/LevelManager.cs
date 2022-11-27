@@ -41,6 +41,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private bool calculatePoints = false;
     public static event Action<Rigidbody> OnReload;
     public static event Action OnWin;
+    public static event Action OnLose;
 
     private void Start()
     {
@@ -122,11 +123,7 @@ public class LevelManager : MonoBehaviour
         {
             currentBirdInSlingshot = null;
             amountOfShots = 0;
-            //Check Enemies and Points
-            OnWin?.Invoke();
-            AddPointsForRemainingBirds(remainingBirdPoints, remainingPopUpOffset);
-            CalculateOverallPoints();
-            SaveLevelPoints(currentPoints);
+            StartCoroutine(ToggleGameOver(1f));
             return;
         }
         currentBirdInSlingshot = spawnedBirds[0];
@@ -165,6 +162,7 @@ public class LevelManager : MonoBehaviour
     private void AddPointsEntity(int points, Vector3 _, GameObject entity)
     {
         currentPoints += points;
+        UIManager.Instance.SetPointsUI(currentPoints);
         if (spawnedEnemies.Contains(entity))
         {
             spawnedEnemies.Remove(entity);
@@ -185,9 +183,9 @@ public class LevelManager : MonoBehaviour
         {
             pointPopUp.SpawnPointsObject(points, spawnedBirds[i].transform.position + popUpOffset, spawnedBirds[i]);
             currentPoints += Mathf.FloorToInt(points * pointMultiplier);
+            UIManager.Instance.SetPointsUI(currentPoints);
             pointMultiplier += 0.1f;
             yield return new WaitForSeconds(1f);
-
         }
     }
 
@@ -204,30 +202,65 @@ public class LevelManager : MonoBehaviour
         }
     }
 
+    private IEnumerator ToggleGameOver(float timer)
+    {
+        InputManager.Instance.enabled = false;
+
+        AddPointsForRemainingBirds(remainingBirdPoints, remainingPopUpOffset);
+
+        yield return new WaitForSeconds(spawnedBirds.Count + timer);
+
+        CalculateOverallPoints();
+
+        if (currentPoints >= pointsNeededOneStar)
+        {
+            ToggleGameOverVictory();
+        }
+        else
+        {
+            ToggleGameOverLose();
+        }
+
+    }
+
+    private void ToggleGameOverLose()
+    {
+        OnLose?.Invoke();
+        StartCoroutine(UIManager.Instance.IActivateGameOverUI(1f, false));
+        SaveLevelPoints(currentPoints);
+    }
+
+    private void ToggleGameOverVictory()
+    {
+        OnWin?.Invoke();
+        StartCoroutine(UIManager.Instance.IActivateGameOverUI(1f, true));
+        SaveLevelPoints(currentPoints);
+    }
+
     private void CalculateOverallPoints()
     {
         if (currentPoints >= pointsNeededThreeStar)
         {
-            //Three Star
             Debug.Log("Three Star");
+            UIManager.Instance.SetStars(3);
             SaveLevelFinished(true);
         }
         else if (currentPoints >= pointsNeededTwoStar && currentPoints < pointsNeededThreeStar)
         {
-            //Two Star
             Debug.Log("Two Star");
+            UIManager.Instance.SetStars(2);
             SaveLevelFinished(true);
         }
         else if (currentPoints >= pointsNeededOneStar && currentPoints < pointsNeededTwoStar)
         {
-            //One Star
             Debug.Log("One Star");
+            UIManager.Instance.SetStars(1);
             SaveLevelFinished(true);
         }
         else
         {
-            //No Star
             Debug.Log("No Star");
+            UIManager.Instance.SetStars(0);
             SaveLevelFinished(false);
         }
     }
