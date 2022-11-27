@@ -15,6 +15,7 @@ public class InGameCameraController : CameraController
     [SerializeField] Transform boundingsCenter;
     [SerializeField] protected Transform defaultViewTarget;
     [SerializeField] protected Transform viewTarget;
+    [SerializeField] float yOffset;
     [SerializeField] float sideViewOffset;
     [SerializeField] protected float aimingFov;
     [SerializeField] protected float defaultFov;
@@ -55,7 +56,7 @@ public class InGameCameraController : CameraController
     {
         var cameraVelocity = mainCamera.velocity;
 
-        var viewTargetPos = new Vector3(viewTarget.position.x + sideViewOffset, viewTarget.position.y, defaultZPos);
+        var viewTargetPos = new Vector3(viewTarget.position.x + sideViewOffset, viewTarget.position.y + yOffset, defaultZPos);
         mainCamera.transform.position = Vector3.SmoothDamp(mainCamera.transform.position, viewTargetPos, ref cameraVelocity, smoothTime, maxSpeed);
     }
     public override void SetViewTarget(Transform newViewTarget)
