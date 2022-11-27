@@ -12,6 +12,11 @@ public class DamageableEntity : BaseStats
 
     static public Action<int,Vector3> OnDestroyObject;
 
+    IEnumerator Start()
+    {
+        yield return new WaitForSeconds(2f);
+        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionZ;
+    }
     public override void GetDmg(Rigidbody rb, float baseDmg)
     {
         CalculateDmg(out float dmg, rb);

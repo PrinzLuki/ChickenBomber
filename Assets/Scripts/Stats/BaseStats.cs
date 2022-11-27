@@ -1,8 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 public class BaseStats : MonoBehaviour, IDamageable
 {
@@ -11,10 +14,9 @@ public class BaseStats : MonoBehaviour, IDamageable
     [SerializeField] protected float health;
     [SerializeField] private float attackDmg;
 
-    public virtual void GetDmg(Rigidbody rb,float baseDmg)
+    async public virtual void GetDmg(Rigidbody rb,float baseDmg)
     {
         CalculateDmg(out float dmg,rb);
-       
         if (dmg == 0) return;
         health -= dmg + baseDmg;
         
@@ -26,9 +28,14 @@ public class BaseStats : MonoBehaviour, IDamageable
 
     protected void CalculateDmg(out float dmg,Rigidbody rb)
     { 
+        Stopwatch watch = new Stopwatch();
+        watch.Start();
+        Debug.Log(watch.Elapsed);
         dmg = 0;
         if (rb.velocity.magnitude < velocityThreshHold) return;
         dmg = rb.velocity.magnitude * velocityDmgMultiplier;
+        watch.Stop();
+        Debug.Log(watch.Elapsed);
 
     }
     public float GetDmgValue()
