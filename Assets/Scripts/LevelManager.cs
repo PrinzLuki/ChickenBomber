@@ -204,13 +204,15 @@ public class LevelManager : MonoBehaviour
 
     private IEnumerator ToggleGameOver(float timer)
     {
+        InputManager.Instance.enabled = false;
+
         AddPointsForRemainingBirds(remainingBirdPoints, remainingPopUpOffset);
 
         yield return new WaitForSeconds(spawnedBirds.Count + timer);
 
         CalculateOverallPoints();
 
-        if (currentPoints >= pointsNeededOneStar )
+        if (currentPoints >= pointsNeededOneStar)
         {
             ToggleGameOverVictory();
         }
@@ -224,14 +226,14 @@ public class LevelManager : MonoBehaviour
     private void ToggleGameOverLose()
     {
         OnLose?.Invoke();
-        StartCoroutine(UIManager.Instance.IActivateGameOverUI(1f));
+        StartCoroutine(UIManager.Instance.IActivateGameOverUI(1f, false));
         SaveLevelPoints(currentPoints);
     }
 
     private void ToggleGameOverVictory()
     {
         OnWin?.Invoke();
-        StartCoroutine(UIManager.Instance.IActivateGameOverUI(1f));
+        StartCoroutine(UIManager.Instance.IActivateGameOverUI(1f, true));
         SaveLevelPoints(currentPoints);
     }
 

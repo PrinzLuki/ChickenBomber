@@ -17,20 +17,17 @@ public class UIManager : Singleton<UIManager>
     [Header("GameOverUI")]
     public Transform gameOverPanel;
     public TMP_Text gameOverPointsText;
-    [Header("Victory")]
-    public Transform starShineUI;
     public Image starsImageUI;
+    [Header("Victory")]
+    public Transform victoryStuff;
+    public Transform starShineUI;
+    [Header("Lose")]
+    public Transform loseStuff;
     [Header("Stars")]
     public Sprite noStar;
     public Sprite oneStar;
     public Sprite twoStar;
     public Sprite threeStar;
-
-    private void Start()
-    {
-
-    }
-
 
     public void SetPointsUI(int points)
     {
@@ -41,12 +38,17 @@ public class UIManager : Singleton<UIManager>
         gameOverPointsText.text = output;
     }
 
-    public IEnumerator IActivateGameOverUI(float timer)
+    public IEnumerator IActivateGameOverUI(float timer, bool victoryValue)
     {
         yield return new WaitForSeconds(timer);
         hudPanel.gameObject.SetActive(false);
         gameOverPanel.gameObject.SetActive(true);
-        starShineUI.gameObject.SetActive(true);
+        starShineUI.gameObject.SetActive(victoryValue);
+        victoryStuff.gameObject.SetActive(victoryValue);
+        loseStuff.gameObject.SetActive(!victoryValue);
+
+        //var endscreenmanager = gameOverPanel.GetComponent<EndScreenManagement>();
+
     }
 
 
