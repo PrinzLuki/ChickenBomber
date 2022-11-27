@@ -22,7 +22,7 @@ public class UIObjectSpawner : MonoBehaviour
     {
         DamageableEntity.OnDestroyObject -= SpawnPointsObject;
     }
-    public void SpawnPointsObject(int points,Vector3 position)
+    public void SpawnPointsObject(int points,Vector3 position, GameObject _)
     {
         var instance = Instantiate(textObjPrefab, position, Quaternion.identity);
 

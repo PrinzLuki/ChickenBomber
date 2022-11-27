@@ -10,7 +10,7 @@ public class DamageableEntity : BaseStats
     [SerializeField] protected int rewardPoints;
     [SerializeField] protected Vector3 popUpSpawnOffset;
 
-    static public Action<int,Vector3> OnDestroyObject;
+    static public Action<int,Vector3, GameObject> OnDestroyObject;
 
     IEnumerator Start()
     {
@@ -26,7 +26,7 @@ public class DamageableEntity : BaseStats
 
         if (health <= 0)
         {
-            OnDestroyObject?.Invoke(rewardPoints, transform.position + popUpSpawnOffset);
+            OnDestroyObject?.Invoke(rewardPoints, transform.position + popUpSpawnOffset, this.gameObject);
             Destroy(gameObject);
         }
     }
