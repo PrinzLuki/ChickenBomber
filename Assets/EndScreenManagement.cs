@@ -8,8 +8,10 @@ using UnityEngine.UI;
 public class EndScreenManagement : MonoBehaviour
 {
     public Button restartButton;
-    public Button toMainMenuButton;
     public Button toLevelSelectionButton;
+    public Button toNextLevelButton;
+    public Image nextLevelImage;
+    public Image nextLevelImageBackground;
 
     public void LoadLevel(string levelName)
     {
