@@ -29,23 +29,23 @@ public class SaveData
     #endregion
 
     #region Player Profile
-    private static PlayerProfile _playerProfile;
+    private static PlayerSettings _playerSettings;
 
-    public static PlayerProfile PlayerProfile
+    public static PlayerSettings PlayerSettings
     {
         get
         {
-            if (_playerProfile == null)
+            if (_playerSettings == null)
             {
-                _playerProfile = new PlayerProfile();
+                _playerSettings = new PlayerSettings();
             }
-            return _playerProfile;
+            return _playerSettings;
         }
         set
         {
             if (value != null)
             {
-                _playerProfile = value;
+                _playerSettings = value;
             }
         }
     }

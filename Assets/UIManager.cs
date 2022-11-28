@@ -43,12 +43,21 @@ public class UIManager : Singleton<UIManager>
         yield return new WaitForSeconds(timer);
         hudPanel.gameObject.SetActive(false);
         gameOverPanel.gameObject.SetActive(true);
-        starShineUI.gameObject.SetActive(victoryValue);
-        victoryStuff.gameObject.SetActive(victoryValue);
-        loseStuff.gameObject.SetActive(!victoryValue);
 
-        //var endscreenmanager = gameOverPanel.GetComponent<EndScreenManagement>();
 
+        if (!victoryValue)
+        {
+            loseStuff.gameObject.SetActive(false);
+            var endscreenmanager = gameOverPanel.GetComponent<EndScreenManagement>();
+            endscreenmanager.toNextLevelButton.interactable = false;
+            endscreenmanager.nextLevelImage.color = Color.gray;
+            endscreenmanager.nextLevelImageBackground.color = Color.gray;
+        }
+        else
+        {
+            starShineUI.gameObject.SetActive(true);
+            victoryStuff.gameObject.SetActive(true);
+        }
     }
 
 

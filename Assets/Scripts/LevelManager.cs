@@ -144,6 +144,8 @@ public class LevelManager : MonoBehaviour
         int offsetIndex = 1;
         for (int i = 0; i < spawnedBirds.Count; i++)
         {
+            if(spawnedBirds[i] == null) continue;
+
             Vector3 newSpawnOffset = new Vector3(spawnOffset.x * offsetIndex, spawnOffset.y, spawnOffset.z);
 
             WaitForEndOfFrame wait = new WaitForEndOfFrame();

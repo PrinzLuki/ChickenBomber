@@ -10,7 +10,7 @@ public class BaseBird : MonoBehaviour
     protected Rigidbody rb;
     protected bool isAbilityEnabled = false;
     [SerializeField] float OnReloadTriggerTime;
-
+    bool isReloaded = false;
     public event Action OnReloadBird;
     public static event Action OnDestroyBird;
     public bool isLaunched = false;
@@ -27,6 +27,11 @@ public class BaseBird : MonoBehaviour
     protected virtual void OnDestroy()
     {
         OnDestroyBird?.Invoke();
+
+        if (!isReloaded)
+        {
+            OnReloadBird?.Invoke();
+        }
     }
 
     public virtual void EnableAbility()
@@ -62,6 +67,7 @@ public class BaseBird : MonoBehaviour
         yield return new WaitForSeconds(OnReloadTriggerTime);
         Debug.LogWarning("Deactivation TimeSpan Successfull Invoked");
         OnReloadBird?.Invoke();
+        isReloaded = true;
     }
 
     public Rigidbody GetRb()
@@ -80,5 +86,6 @@ public class BaseBird : MonoBehaviour
     protected void OnReloadDirectly()
     {
         OnReloadBird?.Invoke();
+        isReloaded = true;
     }
 }

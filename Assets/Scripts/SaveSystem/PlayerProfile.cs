@@ -3,10 +3,12 @@ using System.Collections;
 using UnityEngine;
 
 [System.Serializable]
-public class PlayerProfile
+public class PlayerSettings
 {
     public bool volumeEdited;
-    public int masterVolume;
-    public int musicVolume;
-    public int effectsVolume;
+    public float masterVolume;
+    //public int musicVolume;
+    //public int effectsVolume;
+    public bool toggleMusic;
+    public bool toggleSfx;
 }
