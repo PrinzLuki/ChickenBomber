@@ -22,7 +22,7 @@ public class Slingshot : MonoBehaviour
     Rigidbody currentBirdRb;
     Vector2 startPosition;
     Vector2 currentPosition;
-   [SerializeField] SlingshotState currentState;
+    SlingshotState currentState = SlingshotState.None;
 
     TrajectoryLine trajectoryLine;
     InGameCameraController ingameCameraController;
@@ -74,7 +74,6 @@ public class Slingshot : MonoBehaviour
             trajectoryLine.SetTrajectoryLineActive(false);
         }
     }
-
     void SetSlingShotShot()
     {
         trajectoryLine.SetTrajectoryLineActive(false);

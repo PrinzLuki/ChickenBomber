@@ -8,12 +8,6 @@
         },
         {
             "m_Id": "74c7a0ffbcc44615a0f36af90762f4fe"
-        },
-        {
-            "m_Id": "ac0aea7613094501b095038db8f5b9cc"
-        },
-        {
-            "m_Id": "1c8dad04730743bdb8d3a46265a899d4"
         }
     ],
     "m_Keywords": [],
@@ -239,41 +233,8 @@
         },
         {
             "m_Id": "74c7a0ffbcc44615a0f36af90762f4fe"
-        },
-        {
-            "m_Id": "ac0aea7613094501b095038db8f5b9cc"
-        },
-        {
-            "m_Id": "1c8dad04730743bdb8d3a46265a899d4"
         }
     ]
-}
-
-{
-    "m_SGVersion": 1,
-    "m_Type": "UnityEditor.ShaderGraph.Internal.Vector1ShaderProperty",
-    "m_ObjectId": "1c8dad04730743bdb8d3a46265a899d4",
-    "m_Guid": {
-        "m_GuidSerialized": "6bad178d-99e9-45f1-a2da-d3d87f11e9e4"
-    },
-    "m_Name": "SineSpeed",
-    "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "SineSpeed",
-    "m_DefaultReferenceName": "_SineSpeed",
-    "m_OverrideReferenceName": "",
-    "m_GeneratePropertyBlock": true,
-    "m_UseCustomSlotLabel": false,
-    "m_CustomSlotLabel": "",
-    "m_Precision": 0,
-    "overrideHLSLDeclaration": false,
-    "hlslDeclarationOverride": 0,
-    "m_Hidden": false,
-    "m_Value": 1.0,
-    "m_FloatType": 0,
-    "m_RangeValues": {
-        "x": 0.0,
-        "y": 1.0
-    }
 }
 
 {
@@ -943,33 +904,6 @@
         "m_Guid": ""
     },
     "m_DefaultType": 0
-}
-
-{
-    "m_SGVersion": 1,
-    "m_Type": "UnityEditor.ShaderGraph.Internal.Vector1ShaderProperty",
-    "m_ObjectId": "ac0aea7613094501b095038db8f5b9cc",
-    "m_Guid": {
-        "m_GuidSerialized": "55c36b19-d01f-44c5-8edf-cfea9923580e"
-    },
-    "m_Name": "EmissionStrength",
-    "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "EmissionStrength",
-    "m_DefaultReferenceName": "_EmissionStrength",
-    "m_OverrideReferenceName": "",
-    "m_GeneratePropertyBlock": true,
-    "m_UseCustomSlotLabel": false,
-    "m_CustomSlotLabel": "",
-    "m_Precision": 0,
-    "overrideHLSLDeclaration": false,
-    "hlslDeclarationOverride": 0,
-    "m_Hidden": false,
-    "m_Value": 2.0,
-    "m_FloatType": 0,
-    "m_RangeValues": {
-        "x": 0.0,
-        "y": 1.0
-    }
 }
 
 {

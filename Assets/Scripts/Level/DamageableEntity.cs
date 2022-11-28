@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
+[RequireComponent(typeof (Rigidbody))]
 public class DamageableEntity : BaseStats
 {
     [SerializeField] protected int rewardPoints;
@@ -12,16 +13,16 @@ public class DamageableEntity : BaseStats
 
     static public Action<int,Vector3, GameObject> OnDestroyObject;
 
-    IEnumerator Start()
+    Rigidbody rb;
+    protected virtual void Start()
     {
-        yield return new WaitForSeconds(2f);
-        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionZ;
+        rb = GetComponent<Rigidbody>();
     }
     public override void GetDmg(Rigidbody rb, float baseDmg)
     {
         CalculateDmg(out float dmg, rb);
-
         if (dmg == 0) return;
+        rb.drag = 0.1f;
         health -= dmg + baseDmg;
 
         if (health <= 0)
@@ -32,9 +33,10 @@ public class DamageableEntity : BaseStats
     }
     void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.TryGetComponent<Rigidbody>(out Rigidbody rb) && other.gameObject.TryGetComponent<IDamageable>(out IDamageable damageable))
+        if (other.gameObject.TryGetComponent<Rigidbody>(out Rigidbody rb) && other.gameObject.TryGetComponent(out IDamageable damageable))
         {
-            damageable.GetDmg(rb,GetDmgValue());
+            rb.constraints = RigidbodyConstraints.FreezePositionZ;
+            damageable.GetDmg(rb, GetDmgValue());
         }
     }
 }
