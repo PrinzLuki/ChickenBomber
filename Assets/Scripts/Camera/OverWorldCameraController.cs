@@ -10,6 +10,7 @@ public class OverWorldCameraController : CameraController
 
     [Header("CameraSettings")]
     [SerializeField] OverWorldRuntimeSaveData runtimeSaveData;
+    [SerializeField] Transform orientationPos;
     [SerializeField] Transform groundPlane;
     [SerializeField] Transform cameraBoundsCenter;
     [SerializeField] float nearPlaneOffset;
@@ -48,20 +49,20 @@ public class OverWorldCameraController : CameraController
             Vector3 mousePosWithNearplaneOffset = new Vector3(mousePosScreen.x, mousePosScreen.y, mainCamera.nearClipPlane + nearPlaneOffset);
             startDragPos = mainCamera.ScreenToWorldPoint(mousePosWithNearplaneOffset);
         }
-        else if (InputManager.Instance.MouseButtonUp())
+        else if (InputManager.Instance.IsDragging())
         {
             Vector3 mousePosScreen = Input.mousePosition;
             Vector3 mousePosWithNearplaneOffset = new Vector3(mousePosScreen.x, mousePosScreen.y, mainCamera.nearClipPlane + nearPlaneOffset);
             endDragPos = mainCamera.ScreenToWorldPoint(mousePosWithNearplaneOffset);
             Vector3 velocity = CalculateVelocity();
-            cameraRb.AddForce(new Vector3(velocity.x,0,velocity.z),ForceMode.Impulse);
+            cameraRb.AddForce(new Vector3(velocity.x,0,velocity.z),ForceMode.Force);
         }
     }
     Vector3 CalculateVelocity()
     {
         Vector3 velocity;
 
-        velocity = (startDragPos - endDragPos) * cameraSpeedMultiplier;
+        velocity = (endDragPos - orientationPos.position).normalized * cameraSpeedMultiplier;
 
         return velocity;
     }

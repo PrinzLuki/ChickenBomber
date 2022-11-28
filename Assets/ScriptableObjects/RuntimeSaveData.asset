@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2fa266ef0b24194baf71fe3426e5bd9, type: 3}
   m_Name: RuntimeSaveData
   m_EditorClassIdentifier: 
-  levelBeingPlayed: 1
+  levelBeingPlayed: 0
   lastPositionBird: {x: 0.91, y: 0.5, z: 12.95}
   lastPositionCamera: {x: 0.75, y: 4, z: 18.5}
