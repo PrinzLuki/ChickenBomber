@@ -6,10 +6,10 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Lukas/MainMenu.unity
+    path: Assets/Scenes/MainMenu.unity
     guid: 7e63f15b9eb200d48b7373d24f41f0fb
   - enabled: 1
-    path: Assets/Enzo/LevelSelection.unity
+    path: Assets/Scenes/LevelSelection.unity
     guid: 4663bdc9b1293084c91a60808ff7c5f0
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: bf29c0a68cbcb574e948989e4866dbfc,
