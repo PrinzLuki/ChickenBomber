@@ -66,8 +66,8 @@ public class BaseBird : MonoBehaviour
         isLaunched = false;
         yield return new WaitForSeconds(OnReloadTriggerTime);
         Debug.LogWarning("Deactivation TimeSpan Successfull Invoked");
-        OnReloadBird?.Invoke();
         isReloaded = true;
+        OnReloadBird?.Invoke();
     }
 
     public Rigidbody GetRb()
@@ -85,7 +85,7 @@ public class BaseBird : MonoBehaviour
 
     protected void OnReloadDirectly()
     {
-        OnReloadBird?.Invoke();
         isReloaded = true;
+        OnReloadBird?.Invoke();
     }
 }
