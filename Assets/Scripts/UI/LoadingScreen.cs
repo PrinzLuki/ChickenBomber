@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -13,10 +14,22 @@ public class LoadingScreen : MonoBehaviour
     [SerializeField] SceneAsset sceneToLoad;
     [SerializeField] Image loadingBar;
     [SerializeField] Color cameraBgColor;
+    string sceneNameToLoad;
+
+    public static event Action OnLoadScene;
 
     private void Start()
     {
         OnlyFadeOut();
+
+        if (sceneToLoad == null) return;
+
+        sceneNameToLoad = sceneToLoad.name;
+    }
+
+    public void SetSceneToLoad(string sceneToLoad)
+    {
+        this.sceneNameToLoad = sceneToLoad;
     }
 
     public void FadeInAndOut()
@@ -62,6 +75,12 @@ public class LoadingScreen : MonoBehaviour
         }
         OnlyFadeIn();
         yield return new WaitForSeconds(1f);
-        SceneManager.LoadSceneAsync(sceneToLoad.name);
+
+        if (sceneNameToLoad != string.Empty)
+        {
+            SceneManager.LoadSceneAsync(sceneNameToLoad);
+        }
+
+        OnLoadScene?.Invoke();
     }
 }

@@ -11,13 +11,14 @@ public class LevelSelectionManager : MonoBehaviour
     [SerializeField] OverworldBird overworldBird;
     [SerializeField] LevelSelectionWayPoint currentlySelectedLevel;
     [SerializeField] LevelSelectionWayPoint[] allLevels;
+    [SerializeField] LoadingScreen loadingScreen;
 
     bool canLoadLevel = true;
 
     static public event Action<LevelSelectionWayPoint> SetCurrentLevel; 
     void Awake()
     {
-       
+        LoadingScreen.OnLoadScene += LoadLevel;
     }
     void Start()
     {
@@ -52,6 +53,9 @@ public class LevelSelectionManager : MonoBehaviour
         if (overworldBird.CurrentWaypointStandingOn == null) return;
 
         SetRuntimeSaveData();
+
+        //loadingScreen.SetSceneToLoad(overworldBird.CurrentWaypointStandingOn.GetSceneToLoad());
+
         SceneManager.LoadScene(overworldBird.CurrentWaypointStandingOn.GetSceneToLoad());
     }
     void SetRuntimeSaveData()
