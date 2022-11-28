@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: RuntimeSaveData
   m_EditorClassIdentifier: 
   levelBeingPlayed: 1
-  lastPositionBird: {x: -3.5, y: 0, z: 9}
+  lastPositionBird: {x: 0.91, y: 0.5, z: 12.95}
   lastPositionCamera: {x: 0.75, y: 4, z: 18.5}
