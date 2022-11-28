@@ -9,7 +9,6 @@ using Debug = UnityEngine.Debug;
 
 public class BaseStats : MonoBehaviour, IDamageable
 {
-    [SerializeField] float velocityDmgMultiplier;
     [SerializeField] float velocityThreshHold;
     [SerializeField] protected float health;
     [SerializeField] private float attackDmg;
@@ -27,16 +26,11 @@ public class BaseStats : MonoBehaviour, IDamageable
     }
 
     protected void CalculateDmg(out float dmg,Rigidbody rb)
-    { 
-        Stopwatch watch = new Stopwatch();
-        watch.Start();
-        Debug.Log(watch.Elapsed);
+    {
         dmg = 0;
-        if (rb.velocity.magnitude < velocityThreshHold) return;
-        dmg = rb.velocity.magnitude * velocityDmgMultiplier;
-        watch.Stop();
-        Debug.Log(watch.Elapsed);
-
+        float magnitude = rb.velocity.magnitude;
+        if (magnitude < velocityThreshHold) return;
+        dmg = magnitude;
     }
     public float GetDmgValue()
     {

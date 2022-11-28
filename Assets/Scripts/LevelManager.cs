@@ -162,7 +162,7 @@ public class LevelManager : MonoBehaviour
     private void AddPointsEntity(int points, Vector3 _, GameObject entity)
     {
         currentPoints += points;
-        UIManager.Instance.SetPointsUI(currentPoints);
+        //UIManager.Instance.SetPointsUI(currentPoints);
         if (spawnedEnemies.Contains(entity))
         {
             spawnedEnemies.Remove(entity);
@@ -183,7 +183,7 @@ public class LevelManager : MonoBehaviour
         {
             pointPopUp.SpawnPointsObject(points, spawnedBirds[i].transform.position + popUpOffset, spawnedBirds[i]);
             currentPoints += Mathf.FloorToInt(points * pointMultiplier);
-            UIManager.Instance.SetPointsUI(currentPoints);
+            //UIManager.Instance.SetPointsUI(currentPoints);
             pointMultiplier += 0.1f;
             yield return new WaitForSeconds(1f);
         }

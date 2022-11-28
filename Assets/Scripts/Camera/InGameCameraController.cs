@@ -19,9 +19,15 @@ public class InGameCameraController : CameraController
     [SerializeField] float sideViewOffset;
     [SerializeField] protected float aimingFov;
     [SerializeField] protected float defaultFov;
+    [Header("CameraShakeSettings")]
+    [SerializeField] AnimationCurve shakeStrengthCurve;
+    [SerializeField] float shakeSpeed;
+    [SerializeField] float cameraShakeDuration;
+    [SerializeField] float shakeRange;
 
     CameraState currentState;
     float defaultZPos;
+    bool canfollow = true;
 
     protected override void Start()
     {
@@ -32,6 +38,7 @@ public class InGameCameraController : CameraController
     }
     protected override void Update()
     {
+        if (!canfollow) return;
         base.Update();
         AdjustFov();
     }
@@ -51,7 +58,32 @@ public class InGameCameraController : CameraController
             FollowTarget(viewTarget);
         }
     }
+    public void CameraShake()
+    {
+        StartCoroutine(ShakeCamera( cameraShakeDuration));
+    }
+    IEnumerator ShakeCamera(float duration)
+    {
+        WaitForEndOfFrame waitForEndOfFrame = new WaitForEndOfFrame();
+        Vector3 startPos = transform.position;
+        canfollow = false;
+        float t = 0;
 
+        while (t < duration)
+        {
+            t += Time.deltaTime;
+            float shakeStrength = shakeStrengthCurve.Evaluate(t/duration);
+
+            Vector2 randomPos = Random.insideUnitCircle;
+            Vector3 shakePosition = startPos + new Vector3(randomPos.x, randomPos.y, 0) * shakeStrength * shakeRange;
+
+            transform.position = shakePosition;
+
+            yield return waitForEndOfFrame;
+        }
+
+        canfollow = true;
+    }
     void FollowTarget(Transform viewTarget)
     {
         var cameraVelocity = mainCamera.velocity;
