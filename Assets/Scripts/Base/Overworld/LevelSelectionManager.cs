@@ -12,6 +12,7 @@ public class LevelSelectionManager : MonoBehaviour
     [SerializeField] LevelSelectionWayPoint currentlySelectedLevel;
     [SerializeField] LevelSelectionWayPoint[] allLevels;
     [SerializeField] LoadingScreen loadingScreen;
+    [SerializeField] float offsetAfterLoadingLevel;
 
     bool canLoadLevel = true;
 
@@ -54,16 +55,14 @@ public class LevelSelectionManager : MonoBehaviour
 
         SetRuntimeSaveData();
 
-        //loadingScreen.SetSceneToLoad(overworldBird.CurrentWaypointStandingOn.GetSceneToLoad());
-
-        SceneManager.LoadScene(overworldBird.CurrentWaypointStandingOn.GetSceneToLoad());
+        SceneManager.LoadScene(currentlySelectedLevel.GetSceneToLoad());
     }
     void SetRuntimeSaveData()
     {
         runtimeSaveData.levelBeingPlayed = GetLevelIndex(currentlySelectedLevel);
         runtimeSaveData.lastPositionBird = allLevels[runtimeSaveData.levelBeingPlayed].transform.position;
 
-        Vector3 cameraPos = new Vector3(allLevels[runtimeSaveData.levelBeingPlayed].transform.position.x, CameraController.Instance.transform.position.y, allLevels[runtimeSaveData.levelBeingPlayed].transform.position.z);
+        Vector3 cameraPos = new Vector3(allLevels[runtimeSaveData.levelBeingPlayed].transform.position.x, CameraController.Instance.transform.position.y, allLevels[runtimeSaveData.levelBeingPlayed].transform.position.z + offsetAfterLoadingLevel);
         runtimeSaveData.lastPositionCamera = cameraPos;
     }
     void SetCanLoadLevel(bool canLoadLevel)

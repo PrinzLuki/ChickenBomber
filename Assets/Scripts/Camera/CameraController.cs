@@ -6,8 +6,7 @@ using UnityEngine;
 public abstract class CameraController : Singleton<CameraController>
 {
     [SerializeField] protected float maxSpeed;
-    [SerializeField] protected float smoothTime;
-
+    
     protected Camera mainCamera;
     
     protected virtual void Start()
