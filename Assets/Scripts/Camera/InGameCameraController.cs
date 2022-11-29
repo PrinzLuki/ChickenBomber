@@ -15,6 +15,7 @@ public class InGameCameraController : CameraController
     [SerializeField] Transform boundingsCenter;
     [SerializeField] protected Transform defaultViewTarget;
     [SerializeField] protected Transform viewTarget;
+    [SerializeField] protected float smoothTime;
     [SerializeField] float yOffset;
     [SerializeField] float sideViewOffset;
     [SerializeField] protected float aimingFov;
