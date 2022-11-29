@@ -431,6 +431,7 @@ GameObject:
   - component: {fileID: 6095168546409467940}
   - component: {fileID: 6095168546409467939}
   - component: {fileID: 6095168546409467938}
+  - component: {fileID: -5194947566327467443}
   m_Layer: 11
   m_Name: MultipleProjectilesBird
   m_TagString: Untagged
@@ -538,6 +539,21 @@ MonoBehaviour:
     type: 3}
   speed: 1
   startPoint: {x: 0, y: 0}
+--- !u!114 &-5194947566327467443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6095168546409263135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e56f1c9f70ee314da40b62de5e00f59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundFiles:
+  - soundFileType: 1
+    soundClip: {fileID: 8300000, guid: 2029a2edbe9ebc74bb0158cced764a2e, type: 3}
 --- !u!1 &6095168546409265983
 GameObject:
   m_ObjectHideFlags: 0

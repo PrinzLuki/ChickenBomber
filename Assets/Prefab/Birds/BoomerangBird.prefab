@@ -483,6 +483,7 @@ GameObject:
   - component: {fileID: 3864127634622173231}
   - component: {fileID: 2327643175843609398}
   - component: {fileID: 6957321357706266495}
+  - component: {fileID: -5186046980500615371}
   m_Layer: 11
   m_Name: BoomerangBird
   m_TagString: Untagged
@@ -588,6 +589,21 @@ MonoBehaviour:
   timeSpanBoomerangForce: 3
   boomerangDirection: {x: -1, y: -0.3, z: 0}
   forceMultiplier: 40
+--- !u!114 &-5186046980500615371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7849095786798658518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e56f1c9f70ee314da40b62de5e00f59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundFiles:
+  - soundFileType: 1
+    soundClip: {fileID: 8300000, guid: 2029a2edbe9ebc74bb0158cced764a2e, type: 3}
 --- !u!1 &7849095786798676674
 GameObject:
   m_ObjectHideFlags: 0

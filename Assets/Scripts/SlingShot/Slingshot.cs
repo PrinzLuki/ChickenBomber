@@ -64,6 +64,7 @@ public class Slingshot : MonoBehaviour
         {
             var bird = currentBirdRb.GetComponent<BaseBird>();
             ingameCameraController.SetCameraState(CameraState.Shot);
+            PlayBirdSound(bird, SoundFileType.Launched);
             SetSlingShotShot();
             LaunchBird(bird);
         }
@@ -73,6 +74,12 @@ public class Slingshot : MonoBehaviour
            ingameCameraController.SetCameraState(CameraState.Shot);
             trajectoryLine.SetTrajectoryLineActive(false);
         }
+    }
+    void PlayBirdSound(BaseBird bird,SoundFileType soundFileType)
+    {
+        bird.TryGetComponent(out SoundManagmentComponent soundComp);
+        var instance = (InGameSoundManager)SoundManager.Instance;
+        instance.SpawnSoundObject(soundComp.GetAudioClipFromSoundFileOfType(soundFileType),bird.transform.position,AudioMixerGroupType.Sfx);
     }
     void SetSlingShotShot()
     {
