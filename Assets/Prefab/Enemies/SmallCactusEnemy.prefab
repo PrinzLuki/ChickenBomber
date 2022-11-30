@@ -296,6 +296,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5811534460278389946}
   - component: {fileID: 1480358238421294617}
+  - component: {fileID: 1523458980570296320}
+  - component: {fileID: 5060755397536389196}
   - component: {fileID: 5811534460268685360}
   - component: {fileID: 5811534460276440244}
   - component: {fileID: 5811534460276440246}
@@ -315,7 +317,7 @@ Transform:
   m_GameObject: {fileID: 5811534460278128404}
   m_LocalRotation: {x: 0, y: 0.7071068, z: -0, w: -0.7071068}
   m_LocalPosition: {x: 6.17, y: 0.36, z: -0.93}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.7967101, y: 0.79671, z: 0.7967101}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5811534460278346658}
@@ -340,6 +342,44 @@ MonoBehaviour:
   attackDmg: 1
   rewardPoints: 300
   popUpSpawnOffset: {x: 0, y: 0.5, z: 0}
+--- !u!114 &1523458980570296320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5811534460278128404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34f40c29a7fab4d428090ec775616484, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitParticles:
+  - {fileID: 1001714703486846, guid: ef79a5ac2d516944bb45eea8a0054109, type: 3}
+  - {fileID: 1883610838541854, guid: aa72280b4bb67cb468b0ffc37bcfc9c0, type: 3}
+  - {fileID: 1269060166065924, guid: 1810168468ffe7b4db7f3c67e0743de4, type: 3}
+  deathParticles:
+  - {fileID: 189656, guid: 30a1ca85182ce3e439e8d6cb843ab9ad, type: 3}
+  - {fileID: 7256411017948896141, guid: b3b8f9b5600cc40418354354f2b8f177, type: 3}
+  - {fileID: 1046733363732004, guid: d7a1380441a57044eba390476d4eff72, type: 3}
+  chanceToSpawnHitParticles: 50
+  effectDespawnDelay: 2
+  timeBetweenOnHitEffects: 1.5
+--- !u!114 &5060755397536389196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5811534460278128404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e56f1c9f70ee314da40b62de5e00f59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundFiles:
+  - soundFileType: 0
+    soundClip: {fileID: 8300000, guid: 321feb9f51af885488e5ed433aecd467, type: 3}
 --- !u!95 &5811534460268685360
 Animator:
   serializedVersion: 4

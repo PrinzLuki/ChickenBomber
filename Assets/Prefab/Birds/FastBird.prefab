@@ -196,7 +196,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soundFiles:
   - soundFileType: 1
-    soundClip: {fileID: 8300000, guid: 2029a2edbe9ebc74bb0158cced764a2e, type: 3}
+    soundClip: {fileID: 8300000, guid: c737d47f3181a624aaf169f694891bdd, type: 3}
+  - soundFileType: 0
+    soundClip: {fileID: 8300000, guid: c737d47f3181a624aaf169f694891bdd, type: 3}
 --- !u!1 &4093311839767372627
 GameObject:
   m_ObjectHideFlags: 0

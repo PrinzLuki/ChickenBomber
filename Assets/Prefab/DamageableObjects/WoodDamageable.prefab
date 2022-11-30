@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2869903902372617305}
   - component: {fileID: 2869903902372617309}
+  - component: {fileID: 9045948956567061355}
+  - component: {fileID: 6733542980403121904}
   - component: {fileID: 2869903902372617306}
   - component: {fileID: 2869903902372617307}
   - component: {fileID: 2869903902372617308}
@@ -53,6 +55,42 @@ MonoBehaviour:
   attackDmg: 1
   rewardPoints: 300
   popUpSpawnOffset: {x: 0, y: 0.5, z: 0}
+--- !u!114 &9045948956567061355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2869903902372617310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34f40c29a7fab4d428090ec775616484, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitParticles:
+  - {fileID: 1544299566578556, guid: d3aa5ccf5c3d6bb4aa6aeb2920558a35, type: 3}
+  - {fileID: 1001714703486846, guid: ef79a5ac2d516944bb45eea8a0054109, type: 3}
+  deathParticles:
+  - {fileID: 1738556233115542, guid: 59fb96e360dbd3f4ebf27302f3312d6d, type: 3}
+  - {fileID: 107418, guid: ea6edc3a0a047a243a9ec62ca1655977, type: 3}
+  chanceToSpawnHitParticles: 10
+  effectDespawnDelay: 2
+  timeBetweenOnHitEffects: 1
+--- !u!114 &6733542980403121904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2869903902372617310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e56f1c9f70ee314da40b62de5e00f59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundFiles:
+  - soundFileType: 0
+    soundClip: {fileID: 8300000, guid: 5cd691c7632755d499fbbb55bc1f0fac, type: 3}
 --- !u!33 &2869903902372617306
 MeshFilter:
   m_ObjectHideFlags: 0

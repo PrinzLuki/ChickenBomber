@@ -9,10 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3347704659078173101}
+  - component: {fileID: 33020481472816153}
+  - component: {fileID: 5752185841092467451}
   - component: {fileID: 3347704659078173102}
   - component: {fileID: 3347704659078173103}
   - component: {fileID: 3347704659078173097}
-  - component: {fileID: 33020481472816153}
   m_Layer: 0
   m_Name: BigCactusEnemy
   m_TagString: Untagged
@@ -37,6 +38,41 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!114 &33020481472816153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3347704659078173099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5913a8208ec208843a6363f1bdfe0cb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  velocityThreshHold: 0.25
+  health: 7
+  attackDmg: 2
+  rewardPoints: 400
+  popUpSpawnOffset: {x: 0, y: 0.5, z: 0}
+--- !u!114 &5752185841092467451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3347704659078173099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34f40c29a7fab4d428090ec775616484, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitParticles: {fileID: 1001714703486846, guid: ef79a5ac2d516944bb45eea8a0054109,
+    type: 3}
+  deathParticles: {fileID: 7256411017948896141, guid: b3b8f9b5600cc40418354354f2b8f177,
+    type: 3}
+  effectDespawnDelay: 2
+  timeBetweenOnHitEffects: 1.5
 --- !u!95 &3347704659078173102
 Animator:
   serializedVersion: 4
@@ -86,23 +122,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 8
   m_CollisionDetection: 1
---- !u!114 &33020481472816153
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3347704659078173099}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5913a8208ec208843a6363f1bdfe0cb8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  velocityThreshHold: 0.25
-  health: 7
-  attackDmg: 2
-  rewardPoints: 400
-  popUpSpawnOffset: {x: 0, y: 0.5, z: 0}
 --- !u!1 &3347704659148155017
 GameObject:
   m_ObjectHideFlags: 0

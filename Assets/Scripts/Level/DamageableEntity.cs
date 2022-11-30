@@ -6,6 +6,7 @@ using UnityEditor;
 using UnityEngine;
 
 [RequireComponent(typeof (Rigidbody))]
+[RequireComponent(typeof (SoundManagmentComponent))]
 public class DamageableEntity : BaseStats
 {
     [SerializeField] protected int rewardPoints;
@@ -14,14 +15,18 @@ public class DamageableEntity : BaseStats
     static public Action<int,Vector3, GameObject> OnDestroyObject;
 
     Rigidbody rb;
+    SoundManagmentComponent soundManagmentComponent;
     protected virtual void Start()
     {
         rb = GetComponent<Rigidbody>();
+        soundManagmentComponent = GetComponent<SoundManagmentComponent>();
     }
     public override void GetDmg(Rigidbody rb, float baseDmg)
     {
         CalculateDmg(out float dmg, rb);
         if (dmg == 0) return;
+        
+        PlayDmgedSound();
         rb.drag = 0.1f;
         health -= dmg + baseDmg;
 
@@ -30,6 +35,12 @@ public class DamageableEntity : BaseStats
             OnDestroyObject?.Invoke(rewardPoints, transform.position + popUpSpawnOffset, this.gameObject);
             Destroy(gameObject);
         }
+    }
+
+    void PlayDmgedSound()
+    {
+        var soundManager = (InGameSoundManager)SoundManager.Instance;
+        soundManager.SpawnSoundObject(soundManagmentComponent.GetAudioClipFromSoundFileOfType(SoundFileType.Hit), transform.position, AudioMixerGroupType.Sfx);
     }
     void OnCollisionEnter(Collision other)
     {

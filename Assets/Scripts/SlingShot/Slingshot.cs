@@ -19,14 +19,13 @@ public class Slingshot : MonoBehaviour
     [SerializeField] float powerMultiplier;
     [SerializeField] float reloadTime;
 
+    TrajectoryLine trajectoryLine;
+    InGameCameraController ingameCameraController;
+    Camera cam;
     Rigidbody currentBirdRb;
     Vector2 startPosition;
     Vector2 currentPosition;
     SlingshotState currentState = SlingshotState.None;
-
-    TrajectoryLine trajectoryLine;
-    InGameCameraController ingameCameraController;
-    Camera cam;
 
     void Awake()
     {
