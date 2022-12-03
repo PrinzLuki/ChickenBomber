@@ -307,9 +307,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9101359910984163497}
   m_LocalRotation: {x: -0.18336436, y: -0.6829184, z: 0.18336436, w: 0.6829184}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 0, y: 0, z: 7.9}
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2480374659871946805}
   - {fileID: 3984807550104805295}
@@ -333,7 +333,7 @@ MonoBehaviour:
   lineRenderer: {fileID: 694552139}
   collisionMask:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 136
   steps: 500
 --- !u!114 &694552141
 MonoBehaviour:
@@ -354,7 +354,6 @@ MonoBehaviour:
   offset: 1
   powerMultiplier: 5
   reloadTime: 1
-  currentState: 0
 --- !u!120 &694552139
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -407,7 +406,7 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.13265419
+        value: 0.12059212
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -449,7 +448,7 @@ LineRenderer:
     numCornerVertices: 0
     numCapVertices: 0
     alignment: 0
-    textureMode: 0
+    textureMode: 1
     shadowBias: 0.5
     generateLightingData: 0
   m_UseWorldSpace: 1

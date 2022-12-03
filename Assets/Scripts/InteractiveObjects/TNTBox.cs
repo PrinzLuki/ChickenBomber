@@ -26,6 +26,7 @@ public class TNTBox : DamageableEntity
     {
         foreach (var rb in allRbsInRange)
         {
+            rb.isKinematic = false;
             rb.AddForceAtPosition(GetDirectionToOtherRigidBody(rb.position) * forceMultiplier,rb.position,ForceMode.Impulse);
         }
     }
@@ -43,7 +44,7 @@ public class TNTBox : DamageableEntity
         {
             if (collider.TryGetComponent<Rigidbody>(out Rigidbody dmgable))
             {
-               rbs.Add(dmgable);
+                rbs.Add(dmgable);
             }
         }
 

@@ -13,6 +13,7 @@ public class DamageableEntity : BaseStats
     [SerializeField] protected Vector3 popUpSpawnOffset;
 
     static public Action<int,Vector3, GameObject> OnDestroyObject;
+    static public event Action OnColission;
 
     Rigidbody rb;
     SoundManagmentComponent soundManagmentComponent;
@@ -27,6 +28,7 @@ public class DamageableEntity : BaseStats
         if (dmg == 0) return;
         
         PlayDmgedSound();
+        this.rb.isKinematic = false;
         rb.drag = 0.1f;
         health -= dmg + baseDmg;
 
@@ -36,7 +38,6 @@ public class DamageableEntity : BaseStats
             Destroy(gameObject);
         }
     }
-
     void PlayDmgedSound()
     {
         var soundManager = (InGameSoundManager)SoundManager.Instance;
@@ -46,8 +47,22 @@ public class DamageableEntity : BaseStats
     {
         if (other.gameObject.TryGetComponent<Rigidbody>(out Rigidbody rb) && other.gameObject.TryGetComponent(out IDamageable damageable))
         {
+            Debug.Log("Collided");
+            this.rb.isKinematic = false;
             rb.constraints = RigidbodyConstraints.FreezePositionZ;
             damageable.GetDmg(rb, GetDmgValue());
         }
+    }
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Bird"))
+        {
+            this.rb.isKinematic = false;
+        }
+    }
+    void OnTriggerExit(Collider other)
+    {
+        this.rb.constraints = RigidbodyConstraints.FreezePositionZ;
+        this.rb.isKinematic = false;
     }
 }

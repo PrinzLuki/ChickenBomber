@@ -11,10 +11,12 @@ GameObject:
   - component: {fileID: 3347704659078173101}
   - component: {fileID: 33020481472816153}
   - component: {fileID: 5752185841092467451}
+  - component: {fileID: 3529198703634860092}
   - component: {fileID: 3347704659078173102}
   - component: {fileID: 3347704659078173103}
+  - component: {fileID: 7108602270153538741}
   - component: {fileID: 3347704659078173097}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BigCactusEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29,7 +31,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3347704659078173099}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 6.98, y: 0.36, z: -0.93}
+  m_LocalPosition: {x: 6.98, y: 0.36, z: 7.9}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -51,7 +53,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   velocityThreshHold: 0.25
-  health: 7
+  health: 1
   attackDmg: 2
   rewardPoints: 400
   popUpSpawnOffset: {x: 0, y: 0.5, z: 0}
@@ -67,12 +69,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34f40c29a7fab4d428090ec775616484, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitParticles: {fileID: 1001714703486846, guid: ef79a5ac2d516944bb45eea8a0054109,
-    type: 3}
-  deathParticles: {fileID: 7256411017948896141, guid: b3b8f9b5600cc40418354354f2b8f177,
-    type: 3}
+  hitParticles:
+  - {fileID: 189656, guid: 30a1ca85182ce3e439e8d6cb843ab9ad, type: 3}
+  - {fileID: 1883610838541854, guid: aa72280b4bb67cb468b0ffc37bcfc9c0, type: 3}
+  - {fileID: 1269060166065924, guid: 1810168468ffe7b4db7f3c67e0743de4, type: 3}
+  deathParticles:
+  - {fileID: 1930644504616354, guid: be3a8d67cedf6394c995b869e16f4418, type: 3}
+  - {fileID: 1092234087039896, guid: b67d326910dc13b4fb27b823efcafcdf, type: 3}
+  - {fileID: 1046733363732004, guid: d7a1380441a57044eba390476d4eff72, type: 3}
+  chanceToSpawnHitParticles: 50
   effectDespawnDelay: 2
   timeBetweenOnHitEffects: 1.5
+--- !u!114 &3529198703634860092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3347704659078173099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e56f1c9f70ee314da40b62de5e00f59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundFiles:
+  - soundFileType: 0
+    soundClip: {fileID: 8300000, guid: 379861d1be890dc43b0fca641f1a7591, type: 3}
 --- !u!95 &3347704659078173102
 Animator:
   serializedVersion: 4
@@ -106,6 +128,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.39, y: 0.67, z: 0.55}
   m_Center: {x: 0, y: 0.34, z: 0}
+--- !u!65 &7108602270153538741
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3347704659078173099}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0.3, z: 0}
 --- !u!54 &3347704659078173097
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -120,7 +155,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 8
+  m_Constraints: 14
   m_CollisionDetection: 1
 --- !u!1 &3347704659148155017
 GameObject:

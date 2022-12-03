@@ -14,6 +14,7 @@ public class InGameSoundManager : SoundManager
     {
         var go = CreateSoundObject(position, GetAudioMixerGroupOfType(mixerGroup), out AudioSource createdAudioSource);
         createdAudioSource.PlayOneShot(clipToPlay);
+        Debug.Log(go.name + clipToPlay.ToString());
         Destroy(go,clipToPlay.length);
     }
     GameObject CreateSoundObject(Vector3 position,AudioMixerGroup audioMixerGroup,out AudioSource createdAudioSource)

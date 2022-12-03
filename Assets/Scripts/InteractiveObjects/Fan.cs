@@ -7,14 +7,23 @@ public class Fan : MonoBehaviour
 {
     [SerializeField] Transform fanImpactZoneOrigin;
     [SerializeField] LayerMask affectedLayer;
-    [SerializeField] Vector3 fanImpactSize;
     [SerializeField] float fanForceMultiplier;
 
+    Vector3 fanZoneImpactSize;
+
+    void Start()
+    {
+        fanZoneImpactSize = GetComponentInChildren<Collider>().bounds.extents;
+    }
     void FixedUpdate()
     {
         ApplyForceToRigidBodies(GetAllRigidBodiesInFanZone());
     }
 
+    public Vector3 GetFanForce()
+    {
+        return Vector3.forward * fanForceMultiplier;
+    }
     void ApplyForceToRigidBodies(List<Rigidbody> rbs)
     {
         for (int i = 0; i < rbs.Count; i++)
@@ -24,7 +33,7 @@ public class Fan : MonoBehaviour
     }
     List<Rigidbody> GetAllRigidBodiesInFanZone()
     {
-        var objectsInZone = Physics.OverlapBox(fanImpactZoneOrigin.position, fanImpactSize, fanImpactZoneOrigin.rotation, affectedLayer);
+        var objectsInZone = Physics.OverlapBox(fanImpactZoneOrigin.position, fanZoneImpactSize * 2, fanImpactZoneOrigin.rotation, affectedLayer);
         var rigidBodies = new List<Rigidbody>();
 
         foreach (var obj in objectsInZone)
@@ -40,7 +49,7 @@ public class Fan : MonoBehaviour
     {
         if (fanImpactZoneOrigin != null)
         {
-            Gizmos.DrawWireCube(fanImpactZoneOrigin.position, fanImpactSize);
+            Gizmos.DrawRay(fanImpactZoneOrigin.position, fanImpactZoneOrigin.forward);
         }
     }
 }
