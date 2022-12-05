@@ -45,9 +45,8 @@ public class DamageableEntity : BaseStats
     }
     void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.TryGetComponent<Rigidbody>(out Rigidbody rb) && other.gameObject.TryGetComponent(out IDamageable damageable))
+        if (other.gameObject.TryGetComponent<Rigidbody>(out Rigidbody rb) && other.gameObject.TryGetComponent(out IDamageable damageable) && rb.velocity.magnitude >= velocityThreshHold)
         {
-            Debug.Log("Collided");
             this.rb.isKinematic = false;
             rb.constraints = RigidbodyConstraints.FreezePositionZ;
             damageable.GetDmg(rb, GetDmgValue());
@@ -62,7 +61,10 @@ public class DamageableEntity : BaseStats
     }
     void OnTriggerExit(Collider other)
     {
-        this.rb.constraints = RigidbodyConstraints.FreezePositionZ;
-        this.rb.isKinematic = false;
+        if (other.GetComponent<IDamageable>() != null)
+        {
+            this.rb.constraints = RigidbodyConstraints.FreezePositionZ;
+            this.rb.isKinematic = false;
+        }
     }
 }

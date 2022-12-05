@@ -9,7 +9,7 @@ using Debug = UnityEngine.Debug;
 
 public class BaseStats : MonoBehaviour, IDamageable
 {
-    [SerializeField] float velocityThreshHold;
+    [SerializeField] protected float velocityThreshHold;
     [SerializeField] protected float health;
     [SerializeField] private float attackDmg;
 
